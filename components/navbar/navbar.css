@@ -1,0 +1,98 @@
+.navbar {
+  height: 60px;
+  background-color: #02a768;
+  display: flex;
+  justify-content: center;
+}
+
+.navContainer {
+  width: 100%;
+  max-width: 1024px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-weight: 500;
+}
+
+.navButton {
+  margin-left: 20px;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #003580;
+}
+.img {
+  width: 150px;
+  height: 35px;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+}
+
+.menu-button {
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-left: 10px;
+  display: none; /* Hide the button by default */
+}
+
+/* .menu-icon {
+  /* Add your MenuIcon styles here 
+} */
+
+.logo {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+/* .logo img {
+  /* width: 150px;
+  height: 35px; 
+  /* Add any additional styles for the image here 
+} */
+
+.header-container {
+  display: flex;
+  align-items: center;
+}
+
+.menu-button {
+  color: inherit;
+  background: none;
+  border: none;
+  margin-right: 2px;
+  display: block;
+  margin-left: 2px;
+}
+
+.logo_menu {
+  display: flex;
+}
+
+/* .menu-icon {
+  /* Define your MenuIcon styles here 
+} */
+
+/* .logo {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.logo-image {
+  /* Define your logo image styles here 
+  width: 150px;
+  height: 150px;
+} */

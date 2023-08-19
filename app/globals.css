@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "AL-Mohanad";
+  src: url("/fonts/ArbFONTS-4_DB.ttf") format("truetype"),
+    url("/fonts/ArbFONTS-AL-Mohanad-1.ttf") format("truetype"),
+    url("/fonts/ArbFONTS-al-mohanad.ttf") format("truetype");
+}
+.globalLanAr {
+  direction: rtl;
+}
+.globalLanEn {
+  direction: ltr;
+}
+body {
+  margin: 0px;
+}
