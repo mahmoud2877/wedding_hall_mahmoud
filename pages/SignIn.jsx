@@ -17,10 +17,19 @@ import { Alert, CircularProgress, Stack } from "@mui/material";
 import { authContext } from "./AuthContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useTranslation } from "next-i18next";
+import Navbar from "@/components/navbar/Navbar";
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#03a700",
+    },
+  },
+});
 
-export default function SignIn({ t }) {
+export default function SignIn() {
+  const { t } = useTranslation();
   const schema = yup.object().shape({
     email: yup.string().required(t("emailRequired")).email(t("emailInvalid")),
     password: yup.string().required(t("passwordRequired")),
@@ -42,7 +51,7 @@ export default function SignIn({ t }) {
     setLoading(true);
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/user/login", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/user/login", data, {
         withCredentials: true,
       })
       .then((response) => {

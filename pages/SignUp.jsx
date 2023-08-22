@@ -17,8 +17,15 @@ import { Alert, CircularProgress, Stack } from "@mui/material";
 import { authContext } from "./AuthContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Navbar from "@/components/navbar/Navbar";
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#03a700",
+    },
+  },
+});
 
 export default function SignUp({ t }) {
   const [error, setError] = React.useState("");
@@ -78,7 +85,7 @@ export default function SignUp({ t }) {
     formData.append("password", data.password);
     formData.append("image", data.image);
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/user/signup", formData, {
+      .post("http://192.168.1.66:8080/api/v1/bh/user/signup", formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -98,6 +105,7 @@ export default function SignUp({ t }) {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      {/* <Navbar /> */}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

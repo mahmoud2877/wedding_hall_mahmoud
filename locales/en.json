@@ -49,7 +49,7 @@
   "navbar.guestNumber": "GuestNumber",
   "navbar.governorate": "Governorate",
   "navbar.city": "City",
-  "navbar.submit": "Submit",
+  "navbar.submit": "Search",
   "navbar.signIn": "SignIn",
   "navbar.openSettings": "Open settings",
   "navbar.language": "Language",
@@ -170,5 +170,6 @@
   "indoor": "Indoor",
   "outdoor": "Outdoor",
   "session": "Session",
-  "LocationType": "Location Type"
+  "LocationType": "Location Type",
+  "drawer.SignUpNow": "Sign up for sale and discount"
 }

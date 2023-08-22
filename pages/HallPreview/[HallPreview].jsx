@@ -10,6 +10,7 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
+  List,
   TextField,
   Typography,
 } from "@mui/material";
@@ -29,6 +30,7 @@ import FavouriteContext from "../FavouriteContext";
 import { ReservationModal } from "../ReservationModal";
 import { t } from "i18next";
 import { authContext } from "../AuthContext";
+import ListSearch from "@/components/component/List";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -46,8 +48,8 @@ const HallPreview = () => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const imageSrc = "http://127.0.0.1:8080/public/halls/";
-  const thumbSrc = "http://127.0.0.1:8080/public/thumbnail/";
+  const imageSrc = "http://192.168.1.66:8080/public/halls/";
+  const thumbSrc = "http://192.168.1.66:8080/public/thumbnail/";
 
   const [hallDesc, setHallDesc] = React.useState("");
   const [hallImages, setHallImages] = React.useState([]);
@@ -102,7 +104,7 @@ const HallPreview = () => {
   React.useEffect(() => {
     if (!id) return;
     axios
-      .get(`http://127.0.0.1:8080/api/v1/bh/weddinghall/${id}`, {
+      .get(`http://192.168.1.66:8080/api/v1/bh/weddinghall/${id}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -157,9 +159,11 @@ const HallPreview = () => {
         console.log(error);
       });
   }, [id]);
+  console.log("heeeeeeeeeeeeeeeeeeere");
 
   return (
     <>
+      <ListSearch />
       {location === "" ? null : (
         <Grid container spacing={2} sx={{ mt: 2 }}>
           <Grid item xs={12}>

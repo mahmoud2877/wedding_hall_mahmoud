@@ -65,7 +65,7 @@ export default function AddressForm({ handleNext }) {
 
   React.useEffect(() => {
     axios
-      .get("http://127.0.0.1:8080/api/v1/bh/governorate", {
+      .get("http://192.168.1.66:8080/api/v1/bh/governorate", {
         withCredentials: true,
       })
       .then((response) => {
@@ -85,7 +85,7 @@ export default function AddressForm({ handleNext }) {
         );
         try {
           const response = await axios.get(
-            `http://127.0.0.1:8080/api/v1/bh/cities/?governorate_id=${value.id}`,
+            `http://192.168.1.66:8080/api/v1/bh/cities/?governorate_id=${value.id}`,
             {
               withCredentials: true,
             }
@@ -123,7 +123,7 @@ export default function AddressForm({ handleNext }) {
     setLoading(true);
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/weddinghall", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/weddinghall", data, {
         withCredentials: true,
       })
       .then((response) => {

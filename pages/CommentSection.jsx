@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import { authContext } from "./AuthContext";
 
-const userImage = "http://127.0.0.1:8080/public/img/users/";
+const userImage = "http://192.168.1.66:8080/public/img/users/";
 
 function CommentSection({ hallComments, setHallComments }) {
   const { profile } = React.useContext(authContext);
@@ -40,12 +40,12 @@ function CommentSection({ hallComments, setHallComments }) {
       id_hall: id,
     };
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/review", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/review", data, {
         withCredentials: true,
       })
       .then((response) =>
         axios
-          .get(`http://127.0.0.1:8080/api/v1/bh/weddinghall/${id}`, {
+          .get(`http://192.168.1.66:8080/api/v1/bh/weddinghall/${id}`, {
             withCredentials: true,
           })
           .then((response) => {

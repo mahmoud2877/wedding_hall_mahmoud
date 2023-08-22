@@ -62,12 +62,16 @@ export default function HallAdvancedInfo() {
     });
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/weddinghallinfo/pdf", formData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .post(
+        "http://192.168.1.66:8080/api/v1/bh/weddinghallinfo/pdf",
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((response) => {
         router.push("/UserHalls");
       })

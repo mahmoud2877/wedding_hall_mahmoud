@@ -45,7 +45,7 @@ function Home() {
         tag: "Favourite",
       };
       axios
-        .get("http://127.0.0.1:8080/api/v1/bh/review/fav", {
+        .get("http://192.168.1.66:8080/api/v1/bh/review/fav", {
           withCredentials: true,
           params,
         })
@@ -87,12 +87,12 @@ function Home() {
     };
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/review", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/review", data, {
         withCredentials: true,
       })
       .then(() => {
         axios
-          .get(`http://127.0.0.1:8080/api/v1/bh/user/profile`, {
+          .get(`http://192.168.1.66:8080/api/v1/bh/user/profile`, {
             withCredentials: true,
           })
           .then((response) => {
@@ -116,7 +116,7 @@ function Home() {
       page: page,
     };
     axios
-      .get("http://127.0.0.1:8080/api/v1/bh/weddinghall", {
+      .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
         withCredentials: true,
         params,
       })
@@ -128,7 +128,6 @@ function Home() {
         )
       );
   }, [page, setHalls]);
-
 
   return (
     <ThemeProvider theme={defaultTheme}>

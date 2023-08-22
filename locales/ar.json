@@ -50,7 +50,7 @@
   "navbar.guestNumber": "عدد الافراد",
   "event_date": "تاريخ المناسبه",
 
-  "navbar.submit": "إرسال",
+  "navbar.submit": "بحث",
   "navbar.signIn": "تسجيل الدخول",
   "navbar.openSettings": "فتح الإعدادات",
   "navbar.language": "اللغة",
@@ -171,5 +171,6 @@
   "indoor": "قاعه داخلي",
   "outdoor": "قاعه خارجي",
   "session": "جلسه تصوير",
-  "LocationType": "نوع المكان"
+  "LocationType": "نوع المكان",
+  "drawer.SignUpNow": "سجل الدخول عرض"
 }

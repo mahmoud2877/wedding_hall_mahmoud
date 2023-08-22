@@ -7,6 +7,13 @@
   border-color: transparent;
   border-width: 0;
 }
+.mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm {
+  /* position: "absolute" !important; */
+  left: calc(100% -200px) !important;
+}
+.containerDrawer {
+  position: absolute;
+}
 .responsive-text {
   /* Set a default font size */
   font-size: 1rem;

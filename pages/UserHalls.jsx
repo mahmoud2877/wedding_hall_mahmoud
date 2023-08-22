@@ -30,7 +30,7 @@ export default function UserHalls() {
 
   React.useEffect(() => {
     axios
-      .get("http://127.0.0.1:8080/api/v1/bh/user/myhalls", {
+      .get("http://192.168.1.66:8080/api/v1/bh/user/myhalls", {
         withCredentials: true,
       })
       .then((response) => {

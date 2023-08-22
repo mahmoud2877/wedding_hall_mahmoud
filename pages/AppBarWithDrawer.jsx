@@ -47,6 +47,8 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 import Navbar from "@/components/navbar/Navbar";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
+import MailList from "@/components/mailList/MailList";
+import { useState, useEffect } from "react";
 
 const drawerWidth = 200;
 
@@ -78,7 +80,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const defaultTheme = createTheme({
   palette: {
     primary: {
-      main: "#02a768",
+      main: "#03a700",
     },
   },
   direction: "ltr",
@@ -87,7 +89,7 @@ const defaultTheme = createTheme({
 const rtlTheme = createTheme({
   palette: {
     primary: {
-      main: "#02a768",
+      main: "#03a700",
     },
   },
   direction: "rtl",
@@ -113,6 +115,9 @@ function HideOnScroll(props) {
 export default function Dashboard(props) {
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  const handleDrawerCloseRight = () => {
+    setOpenRight(false);
   };
   const [mainHalls, setMainHalls] = React.useState([]);
   const { t } = useTranslation();
@@ -198,7 +203,7 @@ export default function Dashboard(props) {
   const isLoogedIn = !!profile;
   const handleLogout = () => {
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/user/logout", "", {
+      .post("http://192.168.1.66:8080/api/v1/bh/user/logout", "", {
         withCredentials: true,
       })
       .then(() => router.push("/SignIn"));
@@ -212,10 +217,11 @@ export default function Dashboard(props) {
   };
 
   const [open, setOpen] = React.useState(false);
+  const [openRight, setOpenRight] = React.useState(false);
 
   React.useEffect(() => {
     axios
-      .get("http://127.0.0.1:8080/api/v1/bh/weddinghall", {
+      .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
         withCredentials: true,
       })
       .then((response) =>
@@ -247,7 +253,7 @@ export default function Dashboard(props) {
 
     if (Object.keys(params).length >= 0) {
       axios
-        .get("http://127.0.0.1:8080/api/v1/bh/weddinghall", {
+        .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
           withCredentials: true,
           params,
         })
@@ -268,7 +274,7 @@ export default function Dashboard(props) {
         });
     } else {
       axios
-        .get("http://127.0.0.1:8080/api/v1/bh/weddinghall", {
+        .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
           withCredentials: true,
         })
         .then((response) =>
@@ -292,7 +298,7 @@ export default function Dashboard(props) {
   };
   React.useEffect(() => {
     axios
-      .get("http://127.0.0.1:8080/api/v1/bh/weddinghall", {
+      .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
         withCredentials: true,
       })
       .then((response) =>
@@ -306,11 +312,32 @@ export default function Dashboard(props) {
 
   const drawerAnchor = getDrawerAnchor(currentLanguage);
 
+  const anchor = theme.direction === "rtl" ? "right" : "left";
+  let dirc;
+  theme.direction === "ltr" ? (dirc = "ltr") : (dirc = "rtl");
+  console.log(dirc, "dircdirc");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    // Attach event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  console.log(profile, "pattthhhhhhh");
   return (
     <ThemeProvider theme={theme}>
       <Box>
         <Navbar
-          setOpen={setOpen}
+          setOpen={currentLanguage === "en" ? setOpen : setOpenRight}
           currentLanguage={currentLanguage}
           selectedLanguageIcon={selectedLanguageIcon}
           handleOpenLangMenu={handleOpenLangMenu}
@@ -325,24 +352,22 @@ export default function Dashboard(props) {
           handleLogout={handleLogout}
           handleOpenUserMenu={handleOpenUserMenu}
         />
-        <Header
-          setHalls={setHalls}
-          setFilteredHalls={setFilteredHalls}
-          currentLanguage={currentLanguage}
-          setLoading={setLoading}
-        />
+        {router.pathname.includes("SignIn") ? (
+          ""
+        ) : (
+          <Header
+            setHalls={setHalls}
+            setFilteredHalls={setFilteredHalls}
+            currentLanguage={currentLanguage}
+            setLoading={setLoading}
+          />
+        )}
+
         <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
+          dir="ltr"
           onClose={handleDrawerClose}
           variant="temporary"
-          anchor={drawerAnchor}
+          anchor="left"
           open={open}
         >
           <DrawerHeader>
@@ -360,11 +385,47 @@ export default function Dashboard(props) {
             <MainListItems profile={profile} setOpen={setOpen} />
           </List>
         </Drawer>
+        <Drawer
+          dir="rtl"
+          className="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+          sx={{
+            width: drawerWidth,
+            // right: 0,
+            // width: 200,
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              boxSizing: "border-box",
+              position: "absolute",
+              left: windowWidth - 200,
+              // right: 0,
+            },
+          }}
+          onClose={handleDrawerCloseRight}
+          variant="temporary"
+          anchor="left"
+          open={openRight}
+        >
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerCloseRight}>
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
 
+          <Divider />
+          <List component="nav">
+            <MainListItems profile={profile} setOpen={setOpenRight} />
+          </List>
+        </Drawer>
         <Container maxWidth="lg" sx={{ mt: 5, mb: 4 }}>
           <props.component {...props.pageProps}></props.component>
-          <Footer />
         </Container>
+        <MailList />
+        <Footer />
       </Box>
     </ThemeProvider>
   );

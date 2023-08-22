@@ -38,7 +38,7 @@ export default function Reservations() {
 
   React.useEffect(() => {
     axios
-      .get("http://127.0.0.1:8080/api/v1/bh/reservation/me", {
+      .get("http://192.168.1.66:8080/api/v1/bh/reservation/me", {
         withCredentials: true,
       })
       .then((response) => {

@@ -41,7 +41,7 @@ export const ReservationModal = ({ id_hall, id_package }) => {
 
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8080/api/v1/bh/reservation?id_hall=${id_hall}`,
+        `http://192.168.1.66:8080/api/v1/bh/reservation?id_hall=${id_hall}`,
         {
           withCredentials: true,
         }
@@ -75,7 +75,7 @@ export const ReservationModal = ({ id_hall, id_package }) => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8080/api/v1/bh/reservation",
+        "http://192.168.1.66:8080/api/v1/bh/reservation",
         formInput,
         {
           withCredentials: true,

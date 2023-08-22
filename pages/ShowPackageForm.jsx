@@ -65,7 +65,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
 
   const packageData = () => {
     axios
-      .get(`http://127.0.0.1:8080/api/v1/bh/weddinghall/${id}`, {
+      .get(`http://192.168.1.66:8080/api/v1/bh/weddinghall/${id}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -90,13 +90,13 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/packagehallinfo", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
         withCredentials: true,
       })
 
       .then((response) => {
         // return axios.patch(
-        //   `http://127.0.0.1:8080/api/v1/bh/weddinghallinfo/${packageName.id}`,
+        //   `http://192.168.1.66:8080/api/v1/bh/weddinghallinfo/${packageName.id}`,
         //   { value: data.value },
         //   {
         //     withCredentials: true,
@@ -123,13 +123,13 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/packagehallinfo", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
         withCredentials: true,
       })
 
       .then((response) => {
         // return axios.patch(
-        //   `http://127.0.0.1:8080/api/v1/bh/weddinghallinfo/${packageName.id}`,
+        //   `http://192.168.1.66:8080/api/v1/bh/weddinghallinfo/${packageName.id}`,
         //   { value: data.value },
         //   {
         //     withCredentials: true,
@@ -154,7 +154,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
 
     axios
       .patch(
-        `http://127.0.0.1:8080/api/v1/bh/weddinghallinfo/${packageName.id}`,
+        `http://192.168.1.66:8080/api/v1/bh/weddinghallinfo/${packageName.id}`,
         data,
         {
           withCredentials: true,
@@ -180,7 +180,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/packagehallinfo", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
         withCredentials: true,
       })
       .then((response) => {
@@ -203,7 +203,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/packagehallinfo", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
         withCredentials: true,
       })
       .then((response) => {
@@ -225,7 +225,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/packagehallinfo", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
         withCredentials: true,
       })
       .then((response) => {
@@ -247,7 +247,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/packagehallinfo", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
         withCredentials: true,
       })
       .then((response) => {
@@ -272,7 +272,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
   //   };
 
   //   axios
-  //     .post("http://127.0.0.1:8080/api/v1/bh/packagehallinfo", data, {
+  //     .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
   //       withCredentials: true,
   //     })
   //     .then((response) => {
@@ -294,7 +294,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/packagehallinfo", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
         withCredentials: true,
       })
       .then((response) => {
@@ -316,7 +316,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/packagehallinfo", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
         withCredentials: true,
       })
       .then((response) => {
@@ -338,7 +338,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/packagehallinfo", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
         withCredentials: true,
       })
       .then((response) => {
@@ -360,7 +360,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://127.0.0.1:8080/api/v1/bh/packagehallinfo", data, {
+      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
         withCredentials: true,
       })
       .then((response) => {

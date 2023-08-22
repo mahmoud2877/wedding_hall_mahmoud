@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 const ShowVideoModal = ({ video, onClose }) => {
-  const vidSrc = "http://127.0.0.1:8080/public/videos/";
+  const vidSrc = "http://192.168.1.66:8080/public/videos/";
 
   const style = {
     position: "absolute",

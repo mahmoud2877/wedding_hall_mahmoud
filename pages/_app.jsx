@@ -216,6 +216,7 @@ const AppBarWithDrawer = dynamic(() => import("../pages/AppBarWithDrawer"), {
 
 const defaultTheme = createTheme({
   direction: "rtl",
+
   typography: {
     fontFamily: "AL-Mohanad",
   },
@@ -267,7 +268,6 @@ function MyApp({ Component, pageProps }) {
   }, [theme]);
 
   const showNavBar = ![
-    "/SignIn",
     "/SignUp",
     "/ForgetPassword",
     "/ResetPassword/[ResetPassword]",

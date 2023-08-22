@@ -14,8 +14,15 @@ import axios from "axios";
 import { Alert, CircularProgress, Stack } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Navbar from "@/components/navbar/Navbar";
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#03a700",
+    },
+  },
+});
 
 export default function ForgetPassword({ t }) {
   const [successMessage, setSuccessMessage] = React.useState("");
@@ -55,7 +62,7 @@ export default function ForgetPassword({ t }) {
 
     axios
       .post(
-        `http://127.0.0.1:8080/api/v1/bh/user/resetpassword/${token}`,
+        `http://192.168.1.66:8080/api/v1/bh/user/resetpassword/${token}`,
         data,
         {
           withCredentials: true,
@@ -77,6 +84,7 @@ export default function ForgetPassword({ t }) {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      {/* <Navbar /> */}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

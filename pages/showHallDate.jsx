@@ -11,9 +11,12 @@ export default function DateCalendarValue({ hall_id }) {
   React.useEffect(() => {
     if (!hall_id) return;
     axios
-      .get(`http://127.0.0.1:8080/api/v1/bh/reservation?id_hall=${hall_id}`, {
-        withCredentials: true,
-      })
+      .get(
+        `http://192.168.1.66:8080/api/v1/bh/reservation?id_hall=${hall_id}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         const data = response.data.data.data;
         setOccupiedDates(data.map((item) => item.effect_date));

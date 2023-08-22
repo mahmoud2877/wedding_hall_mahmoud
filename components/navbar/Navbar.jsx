@@ -43,13 +43,14 @@ const Navbar = ({
   handleOpenUserMenu,
 }) => {
   const { profile, setProfile } = React.useContext(authContext);
+  console.log(profile, "isLoggedInisLoggedIn");
   const { t } = useTranslation();
   // const { user } = useContext(AuthContext);
-  const userImage = "http://127.0.0.1:8080/public/img/users/";
+  const userImage = "http://192.168.1.66:8080/public/img/users/";
 
   React.useEffect(() => {
     const response = axios
-      .get(`http://127.0.0.1:8080/api/v1/bh/user/profile`, {
+      .get(`http://192.168.1.66:8080/api/v1/bh/user/profile`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -93,8 +94,8 @@ const Navbar = ({
               <img
                 src="/logo/logo.png"
                 alt="Halls Logo"
-                width="150"
-                height="35"
+                width="160"
+                height="30"
                 onClick={() => router.push("/")}
               />
             </h1>

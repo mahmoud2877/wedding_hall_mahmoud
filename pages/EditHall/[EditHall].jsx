@@ -22,8 +22,8 @@ import { useTranslation } from "react-i18next";
 import ShowHallDate from "../showHallDate";
 const EditHall = () => {
   const { t } = useTranslation();
-  const imageSrc = "http://127.0.0.1:8080/public/halls/";
-  const thumbSrc = "http://127.0.0.1:8080/public/thumbnail/";
+  const imageSrc = "http://192.168.1.66:8080/public/halls/";
+  const thumbSrc = "http://192.168.1.66:8080/public/thumbnail/";
   const router = useRouter();
 
   const [id, setId] = React.useState("");
@@ -62,7 +62,7 @@ const EditHall = () => {
   }, [router.isReady, router.query]);
   React.useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8080/api/v1/bh/weddinghall/${id}`, {
+      .get(`http://192.168.1.66:8080/api/v1/bh/weddinghall/${id}`, {
         withCredentials: true,
       })
       .then((response) => {

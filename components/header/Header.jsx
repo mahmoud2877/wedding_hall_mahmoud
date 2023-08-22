@@ -21,6 +21,9 @@ import axios from "axios";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import PageContext from "../../pages/PageContext";
 import { useRouter } from "next/router";
+import { DatePicker } from "@mui/lab";
+import { IconButton, Tooltip, Avatar, MenuItem, Select } from "@mui/material";
+
 // import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 // import { useNavigate } from "react-router-dom";
 // import { SearchContext } from "../../context/SearchContext";
@@ -33,7 +36,7 @@ const Header = ({
   setLoading,
 }) => {
   const [destination, setDestination] = useState("");
-  const [openDate, setOpenDate] = useState(false);
+  const [openDate, setOpenDate] = useState(true);
   const [governorateData, setGovernorateData] = useState([]);
   const [cityData, setCityData] = useState([]);
   const [dates, setDates] = useState([
@@ -43,15 +46,19 @@ const Header = ({
       key: "selection",
     },
   ]);
+  const [governmentId, setGovernmentId] = useState("");
+  const [cityId, setCityId] = useState("");
+  const [featureQuery, setFeatureQuery] = useState("wedding");
+  const [name, setName] = useState("");
   const router = useRouter();
   const dateRef = useRef(null);
   const guestRef = useRef(null);
 
-  console.log(dates);
+  console.log(dates[0].startDate, "datesdates");
 
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
-    adult: 1,
+    adult: 0,
     children: 0,
     room: 1,
   });
@@ -97,7 +104,7 @@ const Header = ({
 
   React.useEffect(() => {
     axios
-      .get("http://127.0.0.1:8080/api/v1/bh/governorate", {
+      .get("http://192.168.1.66:8080/api/v1/bh/governorate", {
         withCredentials: true,
       })
       .then((response) => {
@@ -107,6 +114,14 @@ const Header = ({
         console.log(error);
       });
   }, []);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  // const [openDate, setOpenDate] = useState(false);
+
+  const handleSingleDate = (date) => {
+    setSelectedDate(date);
+    setOpenDate(false);
+    // Handle your logic with the selected date
+  };
 
   // const navigate = useNavigate();
   // const { user } = useContext(AuthContext);
@@ -132,12 +147,12 @@ const Header = ({
 
   const onGovernorateChange = async (event) => {
     console.log(...event.target.value);
-
+    setGovernmentId(event.target.value);
     // const selectedGovernorateId = event.target.value.id;
 
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8080/api/v1/bh/cities/?governorate_id=${event.target.value}`,
+        `http://192.168.1.66:8080/api/v1/bh/cities/?governorate_id=${event.target.value}`,
         {
           withCredentials: true,
         }
@@ -150,6 +165,7 @@ const Header = ({
 
   const onCityChange = (event) => {
     console.log(...event.target.value);
+    setCityId(event.target.value);
   };
 
   const onSubmit = (data) => {
@@ -165,9 +181,9 @@ const Header = ({
     };
 
     const selectedEl = governorateData.find((el) => {
-      return el.id == data.target[0].value;
+      return el.id == governmentId;
     });
-    console.log(selectedEl, "seeeelelelelele", data.target[0].value);
+    // console.log(selectedEl, "seeeelelelelele", data.target[0].value);
     if (selectedEl) {
       if (currentLanguage === "en") {
         params.governorate = selectedEl.governorate_name_en;
@@ -176,7 +192,7 @@ const Header = ({
       }
     }
     const selectedCity = cityData.find((el) => {
-      return el.id == data.target[1].value;
+      return el.id == cityId;
     });
     console.log(cityData, selectedCity, "citycity");
     if (selectedCity) {
@@ -192,11 +208,18 @@ const Header = ({
     //     params[key] = data[key];
     //   }
     // }
-    console.log(data.target[2].value, "bbhhhbhbh");
+    console.log(
+      data.target[2].value,
+      "bbhhhbhbh",
+      new Date(dates[0].endDate).getDate(),
+      new Date(),
+      new Date(dates[0].endDate) !== new Date()
+    );
 
-    if (data.target[2].value) {
-      const selectedDate = new Date(data.target[2].value);
-      const selectedEnd = new Date(data.target[3].value);
+    if (new Date(dates[0].endDate).getDate() !== new Date().getDate()) {
+      // const selectedDate = new Date(dates.startDate);
+      // const selectedEnd = new Date(dates.endDate);
+
       // selectedDate
       //   .toLocaleDateString("en-US", {
       //     year: "numeric",
@@ -204,15 +227,15 @@ const Header = ({
       //     day: "numeric",
       //   })
       //   .replace(/\//g, "-");
-
+      console.log(dates[0].startDate, "sssssssssssssst");
       function formatDate(date) {
         const day = date.getDate();
         const month = date.getMonth() + 1; // Months are zero-indexed
         const year = date.getFullYear();
-        return `${day}-${month}-${year}`;
+        return `${year}-${month}-${day}`;
       }
-      const startDateEff = formatDate(selectedDate);
-      const endDateEff = formatDate(selectedEnd);
+      const startDateEff = formatDate(dates[0].startDate);
+      const endDateEff = formatDate(dates[0].endDate);
       params.startEff = startDateEff;
       params.endEff = endDateEff;
       console.log(startDateEff, endDateEff);
@@ -223,9 +246,22 @@ const Header = ({
       params.guest = options.adult;
     }
 
+    if (name) {
+      params.name = name;
+    }
+    if (featureQuery) {
+      params.feature = featureQuery;
+    }
+    // if (governmentId) {
+    //   params.governorate = governmentId;
+    // }
+    // if (cityId) {
+    //   params.city = cityId;
+    // }
+
     if (Object.keys(params).length >= 0) {
       axios
-        .get("http://127.0.0.1:8080/api/v1/bh/weddinghall", {
+        .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
           withCredentials: true,
           params,
         })
@@ -246,7 +282,7 @@ const Header = ({
         });
     } else {
       axios
-        .get("http://127.0.0.1:8080/api/v1/bh/weddinghall", {
+        .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
           withCredentials: true,
         })
         .then((response) =>
@@ -277,127 +313,299 @@ const Header = ({
     direction = "directionrtl";
   }
 
+  const handleFilter = (query) => {
+    console.log(query);
+    setFeatureQuery(query);
+    // const paramFeatures = { feature: query };
+    // console.log(paramFeatures);
+
+    const params = {
+      page: page,
+    };
+
+    const selectedEl = governorateData.find((el) => {
+      return el.id == governmentId;
+    });
+    // console.log(selectedEl, "seeeelelelelele", data.target[0].value);
+    if (selectedEl) {
+      if (currentLanguage === "en") {
+        params.governorate = selectedEl.governorate_name_en;
+      } else {
+        params.governorate = selectedEl.governorate_name_ar;
+      }
+    }
+    const selectedCity = cityData.find((el) => {
+      return el.id == cityId;
+    });
+    console.log(cityData, selectedCity, "citycity");
+    if (selectedCity) {
+      if (currentLanguage === "en") {
+        params.city = selectedCity.city_name_en;
+      } else {
+        params.city = selectedCity.city_name_ar;
+      }
+    }
+    if (options.adult) {
+      params.guest = options.adult;
+    }
+
+    if (name) {
+      params.name = name;
+    }
+    if (featureQuery) {
+      params.feature = featureQuery;
+    }
+    if (dates[0].startDate !== new Date()) {
+      // const selectedDate = new Date(dates.startDate);
+      // const selectedEnd = new Date(dates.endDate);
+
+      // selectedDate
+      //   .toLocaleDateString("en-US", {
+      //     year: "numeric",
+      //     month: "numeric",
+      //     day: "numeric",
+      //   })
+      //   .replace(/\//g, "-");
+      console.log(dates[0].startDate, "sssssssssssssst");
+      function formatDate(date) {
+        const day = date.getDate();
+        const month = date.getMonth() + 1; // Months are zero-indexed
+        const year = date.getFullYear();
+        return `${year}-${month}-${day}`;
+      }
+      const startDateEff = formatDate(dates[0].startDate);
+      const endDateEff = formatDate(dates[0].endDate);
+      params.startEff = startDateEff;
+      params.endEff = endDateEff;
+      console.log(startDateEff, endDateEff);
+      console.log(params, "params");
+    }
+
+    axios
+      .get(`http://192.168.1.66:8080/api/v1/bh/weddinghall?feature=${query}`, {
+        withCredentials: true,
+        // paramFeatures,
+      })
+      .then((response) => {
+        setFilteredHalls(
+          response.data.data.data.filter(
+            (hall) => hall.wedding_infos.length > 0
+          )
+        );
+        setHalls([]);
+        router.push("/");
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   return (
     <div className="header">
-      <div className={"headerContainer"}>
-        <div className="headerList">
-          <div className="headerListItem active">
-            <FontAwesomeIcon icon={faBed} />
-            <span>{t("wedding")} </span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faPlane} />
-            <span>{t("photoshoot")}</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faCar} />
-            <span>{t("conferences")}</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faBed} />
-            <span>{t("graduation")}</span>
-          </div>
-          {/* <div className="headerListItem">
+      <div className="background">
+        <div className="headerContainer">
+          <div className="headerList">
+            <button
+              className={`headerListItem ${
+                featureQuery === "wedding" ? "active" : ""
+              } `}
+              onClick={() => handleFilter("wedding")}
+            >
+              <FontAwesomeIcon icon={faBed} />
+              <span>{t("wedding")} </span>
+            </button>
+            <button
+              className={`headerListItem ${
+                featureQuery === "photoshoot" ? "active" : ""
+              } `}
+              onClick={() => handleFilter("photoshoot")}
+            >
+              <FontAwesomeIcon icon={faPlane} />
+              <span>{t("photoshoot")}</span>
+            </button>
+            <button
+              className={`headerListItem ${
+                featureQuery === "conferences" ? "active" : ""
+              } `}
+              onClick={() => handleFilter("conferences")}
+            >
+              <FontAwesomeIcon icon={faCar} />
+              <span>{t("conferences")}</span>
+            </button>
+            <button
+              className={`headerListItem ${
+                featureQuery === "graduation" ? "active" : ""
+              } `}
+              onClick={() => handleFilter("graduation")}
+            >
+              <FontAwesomeIcon icon={faBed} />
+              <span>{t("graduation")}</span>
+            </button>
+            {/* <div className="headerListItem">
             <FontAwesomeIcon icon={faTaxi} />
             <span>Airport taxis</span>
           </div> */}
-        </div>
-        <>
-          <h1 className="headerTitle">{t("searchHall")}</h1>
-          {/* <p className="headerDesc">
+          </div>
+          <>
+            <h1 className="headerTitle">{t("searchHall")}</h1>
+            {/* <p className="headerDesc">
             Get rewarded for your travels – unlock instant savings of 10% or
             more with a free Lamabooking account
           </p> */}
-          {/* {!user && <button className="headerBtn">Sign in / Register</button>} */}
-          <form className="headerSearch" onSubmit={onSubmit}>
-            <div className="headerSearchItem">
-              <LocationCityIcon className="headerIcon" />
-              <select
-                className=" headerSearchText headerSearchInputSelect"
-                placeholder="choose government?"
-                onChange={(e) => onGovernorateChange(e)}
-              >
-                <option value="" disabled selected hidden>
-                  choose government
-                </option>
-                {governorateData.map((el) => (
-                  <option value={el.id}>{el.governorate_name_en}</option>
-                ))}
-              </select>
-            </div>
-            <div className="headerSearchItem">
-              <LocationCityIcon className="headerIcon" />
-              <select
-                className=" headerSearchText headerSearchInputSelect"
-                onChange={(e) => onCityChange(e)}
-              >
-                <option value="" disabled selected hidden>
-                  choose city
-                </option>
-                {cityData.map((el) => (
-                  <option value={el.id}>{el.city_name_en}</option>
-                ))}
-              </select>
-            </div>
-            <div className="headerSearchItem" ref={dateRef}>
-              <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-              <span
-                onClick={() => setOpenDate(!openDate)}
-                onBlur={() => setOpenDate(false)}
-                className="headerSearchText"
-              >{`${format(dates[0].startDate, "dd-mm-yyyy")} to ${format(
-                dates[0].endDate,
-                "dd-mm-yyyy"
-              )}`}</span>
-              {openDate && (
-                <DateRange
-                  editableDateInputs={true}
-                  // setDates([item.selection])
-                  onChange={(item) => handleDate(item)}
-                  moveRangeOnFirstSelection={false}
-                  ranges={dates}
-                  className={`date ${direction}`}
-                  minDate={new Date()}
-                />
-              )}
-            </div>
-            <div className="headerSearchItem" ref={guestRef}>
-              <FontAwesomeIcon icon={faPerson} className="headerIcon" />
-              <span
-                onClick={() => setOpenOptions(!openOptions)}
-                className="headerSearchText"
-              >{`${options.adult} guest `}</span>
-              {openOptions && (
-                <div className="options">
-                  <div className="optionItem">
-                    <span className="optionText">guest</span>
-                    <div className="optionCounter">
-                      <button
-                        disabled={options.adult <= 1}
-                        className="optionCounterButton"
-                        type="button"
-                        onClick={() => handleOption("adult", "d")}
-                      >
-                        -
-                      </button>
-                      <input
-                        className="optionCounterNumber"
-                        onChange={(e) =>
-                          handleOptionInput("adult", +e.target.value)
-                        }
-                        value={options.adult}
-                      />
+            {/* {!user && <button className="headerBtn">Sign in / Register</button>} */}
+          </>
+        </div>
+      </div>
+      <form className="headerSearch" onSubmit={onSubmit}>
+        <div className="headerSearchItem">
+          <LocationCityIcon className="headerIcon" />
+          <input
+            className="headerSearchText headerSearchInputSelect  inputName"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+          />
+        </div>
+        <div className="headerSearchItem">
+          <LocationCityIcon className="headerIcon" />
+          <select
+            className=" headerSearchText headerSearchInputSelect"
+            placeholder="choose government?"
+            onChange={(e) => onGovernorateChange(e)}
+          >
+            <option value="" disabled selected hidden>
+              {t("navbar.governorate")}
+            </option>
+            {governorateData.map((el) => (
+              <option value={el.id}>{el.governorate_name_en}</option>
+            ))}
+          </select>
+        </div>
+        <div className="headerSearchItem">
+          <LocationCityIcon className="headerIcon" />
+          <select
+            className=" headerSearchText headerSearchInputSelect"
+            onChange={(e) => onCityChange(e)}
+          >
+            <option value="" disabled selected hidden>
+              {t("navbar.city")}
+            </option>
+            {cityData.map((el) => (
+              <option value={el.id}>{el.city_name_en}</option>
+            ))}
+          </select>
+        </div>
+        {/* <div className="headerSearchItem" ref={dateRef}>
+          <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
+          <span
+            onClick={() => setOpenDate(!openDate)}
+            className="headerSearchText"
+          >{`${format(dates[0].startDate, "dd-mm-yyyy")} to ${format(
+            dates[0].endDate,
+            "dd-mm-yyyy"
+          )}`}</span>
+          {openDate && (
+            <DateRange
+              editableDateInputs={false}
+              // setDates([item.selection])
+              onChange={(item) => handleDate(item)}
+              moveRangeOnFirstSelection={false}
+              ranges={dates}
+              className={`date ${direction}`}
+              minDate={new Date()}
+            />
+          )}
+        </div> */}
+        {/* <div className="headerSearchItem">
+          <IconButton color="inherit" onClick={() => setOpenDate(!openDate)}>
+            <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
+          </IconButton>
+          <span className="headerSearchText">
+            {format(selectedDate, "dd-MM-yyyy")}
+          </span>
 
-                      <button
-                        className="optionCounterButton"
-                        type="button"
-                        onClick={() => handleOption("adult", "i")}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                  {/* <div className="optionItem">
+          <DatePicker
+            value={selectedDate}
+            onChange={(item) => handleDate(item)}
+            className="date"
+            minDate={new Date()}
+            open={openDate}
+            onClose={() => setOpenDate(false)}
+            PopperProps={{
+              disablePortal: true,
+            }}
+          />
+        </div> */}
+
+        <DatePicker
+          onMouseDown={(event) => event.preventDefault()}
+          className="input"
+          label={t("event_date")}
+          value={null}
+          onChange={(date) => {
+            setValue("event_date", date ? date.format("YYYY-MM-DD") : "");
+          }}
+          disablePast
+          format="YYYY-MM-DD"
+          // InputProps={{
+          //   startAdornment: theme.direction === "rtl" && (
+          //     <InputAdornment position="end">
+          //       <EventIcon />
+          //     </InputAdornment>
+          //   ),
+          //   endAdornment: theme.direction === "ltr" && (
+          //     <InputAdornment position="end">
+          //       <EventIcon />
+          //     </InputAdornment>
+          //   ),
+          // }}
+          variant="filled"
+          InputLabelProps={{
+            shrink: true,
+            style: { whiteSpace: "nowrap" },
+          }}
+        />
+        <div className="headerSearchItem" ref={guestRef}>
+          <FontAwesomeIcon icon={faPerson} className="headerIcon" />
+          <span
+            onClick={() => setOpenOptions(!openOptions)}
+            className="headerSearchText"
+          >{`${options.adult} ${t("navbar.guestNumber")} `}</span>
+          {openOptions && (
+            <div className="options">
+              <div className="optionItem">
+                <span className="optionText">{t("navbar.guestNumber")}</span>
+                <div className="optionCounter">
+                  <button
+                    disabled={options.adult <= 1}
+                    className="optionCounterButton"
+                    type="button"
+                    onClick={() => handleOption("adult", "d")}
+                  >
+                    -
+                  </button>
+                  <input
+                    className="optionCounterNumber"
+                    onChange={(e) =>
+                      handleOptionInput("adult", +e.target.value)
+                    }
+                    value={options.adult}
+                  />
+
+                  <button
+                    className="optionCounterButton"
+                    type="button"
+                    onClick={() => handleOption("adult", "i")}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              {/* <div className="optionItem">
                     <span className="optionText">Children</span>
                     <div className="optionCounter">
                       <button
@@ -439,17 +647,15 @@ const Header = ({
                       </button>
                     </div>
                   </div> */}
-                </div>
-              )}
             </div>
-            {/* <div className="headerSearchItem"> */}
-            <button type="submit" className="headerBtn">
-              Search
-            </button>
-            {/* </div> */}
-          </form>
-        </>
-      </div>
+          )}
+        </div>
+        {/* <div className="headerSearchItem"> */}
+        <button type="submit" className="headerBtn">
+          {t("navbar.submit")}
+        </button>
+        {/* </div> */}
+      </form>
     </div>
     // </div>
     //   <button className="prev-button">&#10094;</button>

@@ -54,7 +54,7 @@ export default function PackageModal({ setHallPackage }) {
 
   const PackageData = () => {
     axios
-      .get(`http://127.0.0.1:8080/api/v1/bh/weddinghall/${id}`, {
+      .get(`http://192.168.1.66:8080/api/v1/bh/weddinghall/${id}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -83,7 +83,7 @@ export default function PackageModal({ setHallPackage }) {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8080/api/v1/bh/weddinghallinfo",
+        "http://192.168.1.66:8080/api/v1/bh/weddinghallinfo",
         formData,
         {
           withCredentials: true,
