@@ -267,11 +267,7 @@ function MyApp({ Component, pageProps }) {
     }
   }, [theme]);
 
-  const showNavBar = ![
-    "/SignUp",
-    "/ForgetPassword",
-    "/ResetPassword/[ResetPassword]",
-  ].includes(router.pathname);
+  const showNavBar = ![].includes(router.pathname);
 
   const component = showNavBar ? (
     <LocalizationProvider

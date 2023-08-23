@@ -172,5 +172,8 @@
   "outdoor": "قاعه خارجي",
   "session": "جلسه تصوير",
   "LocationType": "نوع المكان",
-  "drawer.SignUpNow": "سجل الدخول عرض"
+  "drawer.SignUpNow": "سجل الدخول عرض",
+  "signUp.phone": "رقم الهاتف",
+  "drawer.SignInNow": "سجل الدخول للحصول علي الخصومات",
+  "navbar.searchbyname": "ابحث عن قاعة"
 }

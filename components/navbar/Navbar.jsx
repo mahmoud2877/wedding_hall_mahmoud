@@ -296,7 +296,7 @@ const Navbar = ({
                   },
                 }}
               >
-                {t("drawer.becomePartner")}
+                {t("drawer.SignInNow")}
               </Button>
               <Button
                 sx={{

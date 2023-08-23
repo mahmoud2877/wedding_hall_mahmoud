@@ -21,8 +21,19 @@ import axios from "axios";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import PageContext from "../../pages/PageContext";
 import { useRouter } from "next/router";
-import { DatePicker } from "@mui/lab";
+
 import { IconButton, Tooltip, Avatar, MenuItem, Select } from "@mui/material";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import GroupsIcon from "@mui/icons-material/Groups";
+import SchoolIcon from "@mui/icons-material/School";
+import SearchIcon from "@mui/icons-material/Search";
+import AccessibilityNewOutlinedIcon from "@mui/icons-material/AccessibilityNewOutlined";
+import dayjs from "dayjs";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 // import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 // import { useNavigate } from "react-router-dom";
@@ -46,6 +57,7 @@ const Header = ({
       key: "selection",
     },
   ]);
+  const [value, setValue] = useState(new Date());
   const [governmentId, setGovernmentId] = useState("");
   const [cityId, setCityId] = useState("");
   const [featureQuery, setFeatureQuery] = useState("wedding");
@@ -62,6 +74,7 @@ const Header = ({
     children: 0,
     room: 1,
   });
+
   const { page } = React.useContext(PageContext);
 
   const { t } = useTranslation();
@@ -114,7 +127,8 @@ const Header = ({
         console.log(error);
       });
   }, []);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const [selectesDate, setSelectedDate] = useState(new Date());
   // const [openDate, setOpenDate] = useState(false);
 
   const handleSingleDate = (date) => {
@@ -414,7 +428,7 @@ const Header = ({
               } `}
               onClick={() => handleFilter("wedding")}
             >
-              <FontAwesomeIcon icon={faBed} />
+              <AccessibilityNewOutlinedIcon />
               <span>{t("wedding")} </span>
             </button>
             <button
@@ -423,7 +437,7 @@ const Header = ({
               } `}
               onClick={() => handleFilter("photoshoot")}
             >
-              <FontAwesomeIcon icon={faPlane} />
+              <CameraAltIcon />
               <span>{t("photoshoot")}</span>
             </button>
             <button
@@ -432,7 +446,7 @@ const Header = ({
               } `}
               onClick={() => handleFilter("conferences")}
             >
-              <FontAwesomeIcon icon={faCar} />
+              <GroupsIcon />
               <span>{t("conferences")}</span>
             </button>
             <button
@@ -441,7 +455,7 @@ const Header = ({
               } `}
               onClick={() => handleFilter("graduation")}
             >
-              <FontAwesomeIcon icon={faBed} />
+              <SchoolIcon />
               <span>{t("graduation")}</span>
             </button>
             {/* <div className="headerListItem">
@@ -461,17 +475,17 @@ const Header = ({
       </div>
       <form className="headerSearch" onSubmit={onSubmit}>
         <div className="headerSearchItem">
-          <LocationCityIcon className="headerIcon" />
           <input
+            placeholder={t("navbar.searchbyname")}
             className="headerSearchText headerSearchInputSelect  inputName"
             value={name}
             onChange={(e) => {
               setName(e.target.value);
             }}
           />
+          <SearchIcon className="headerIcon" />
         </div>
         <div className="headerSearchItem">
-          <LocationCityIcon className="headerIcon" />
           <select
             className=" headerSearchText headerSearchInputSelect"
             placeholder="choose government?"
@@ -484,9 +498,9 @@ const Header = ({
               <option value={el.id}>{el.governorate_name_en}</option>
             ))}
           </select>
+          <LocationCityIcon className="headerIcon" />
         </div>
         <div className="headerSearchItem">
-          <LocationCityIcon className="headerIcon" />
           <select
             className=" headerSearchText headerSearchInputSelect"
             onChange={(e) => onCityChange(e)}
@@ -498,6 +512,7 @@ const Header = ({
               <option value={el.id}>{el.city_name_en}</option>
             ))}
           </select>
+          <LocationCityIcon className="headerIcon" />
         </div>
         {/* <div className="headerSearchItem" ref={dateRef}>
           <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
@@ -520,57 +535,31 @@ const Header = ({
             />
           )}
         </div> */}
-        {/* <div className="headerSearchItem">
-          <IconButton color="inherit" onClick={() => setOpenDate(!openDate)}>
-            <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-          </IconButton>
-          <span className="headerSearchText">
-            {format(selectedDate, "dd-MM-yyyy")}
-          </span>
+        <div className="headerSearchItem">
+          {" "}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              defaultValue={dayjs("2022/04/17")}
+              sx={{
+                // outline: "none", // Hide the outline
 
-          <DatePicker
-            value={selectedDate}
-            onChange={(item) => handleDate(item)}
-            className="date"
-            minDate={new Date()}
-            open={openDate}
-            onClose={() => setOpenDate(false)}
-            PopperProps={{
-              disablePortal: true,
-            }}
-          />
-        </div> */}
+                "& .MuiInputBase-root": {
+                  // outline: "none", // Hide outline for the input field
+                },
+                "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+                  border: "none",
+                  fontSize: "0.9rem",
 
-        <DatePicker
-          onMouseDown={(event) => event.preventDefault()}
-          className="input"
-          label={t("event_date")}
-          value={null}
-          onChange={(date) => {
-            setValue("event_date", date ? date.format("YYYY-MM-DD") : "");
-          }}
-          disablePast
-          format="YYYY-MM-DD"
-          // InputProps={{
-          //   startAdornment: theme.direction === "rtl" && (
-          //     <InputAdornment position="end">
-          //       <EventIcon />
-          //     </InputAdornment>
-          //   ),
-          //   endAdornment: theme.direction === "ltr" && (
-          //     <InputAdornment position="end">
-          //       <EventIcon />
-          //     </InputAdornment>
-          //   ),
-          // }}
-          variant="filled"
-          InputLabelProps={{
-            shrink: true,
-            style: { whiteSpace: "nowrap" },
-          }}
-        />
+                  "&:hover": {
+                    borderColor: "transparent", // Hide border on hover
+                  },
+                },
+              }}
+            />
+          </LocalizationProvider>
+        </div>
+
         <div className="headerSearchItem" ref={guestRef}>
-          <FontAwesomeIcon icon={faPerson} className="headerIcon" />
           <span
             onClick={() => setOpenOptions(!openOptions)}
             className="headerSearchText"
@@ -649,6 +638,7 @@ const Header = ({
                   </div> */}
             </div>
           )}
+          <FontAwesomeIcon icon={faPerson} className="headerIcon" />
         </div>
         {/* <div className="headerSearchItem"> */}
         <button type="submit" className="headerBtn">

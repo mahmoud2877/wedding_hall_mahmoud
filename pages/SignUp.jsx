@@ -17,6 +17,7 @@ import { Alert, CircularProgress, Stack } from "@mui/material";
 import { authContext } from "./AuthContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useTranslation } from "next-i18next";
 import Navbar from "@/components/navbar/Navbar";
 
 const defaultTheme = createTheme({
@@ -27,7 +28,8 @@ const defaultTheme = createTheme({
   },
 });
 
-export default function SignUp({ t }) {
+export default function SignUp() {
+  const { t } = useTranslation();
   const [error, setError] = React.useState("");
   const [imagePreview, setImagePreview] = React.useState(null);
   const [selectedFileName, setSelectedFileName] = React.useState("");
@@ -39,6 +41,10 @@ export default function SignUp({ t }) {
       .string()
       .required(t("passwordRequired"))
       .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, t("passwordInvalid")),
+    phone: yup
+      .string()
+      .matches(/^01[0-9]{9}$/, t("validation.phone.matches"))
+      .required(t("validation.phone.required")),
   });
   const router = useRouter();
 
@@ -54,6 +60,7 @@ export default function SignUp({ t }) {
       email: "",
       password: "",
       image: "",
+      phone: "",
     },
   });
   const { setProfile } = React.useContext(authContext);
@@ -84,6 +91,7 @@ export default function SignUp({ t }) {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("image", data.image);
+    formData.append("phone", data.phone);
     axios
       .post("http://192.168.1.66:8080/api/v1/bh/user/signup", formData, {
         withCredentials: true,
@@ -191,6 +199,26 @@ export default function SignUp({ t }) {
                       autoComplete="new-password"
                       error={!!errors.password}
                       helperText={errors.password?.message}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  name="phone"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      required
+                      fullWidth
+                      name="phone"
+                      label={t("signUp.phone")}
+                      type="phone"
+                      id="phone"
+                      autoComplete="new-phone"
+                      error={!!errors.phone}
+                      helperText={errors.phone?.message}
                     />
                   )}
                 />

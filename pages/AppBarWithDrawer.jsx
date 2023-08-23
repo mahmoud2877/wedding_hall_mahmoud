@@ -151,6 +151,7 @@ export default function Dashboard(props) {
   };
 
   console.log(getCurrentLanguage(), "languagelanguage");
+
   const [currentLanguage, setCurrentLanguage] = React.useState(
     getCurrentLanguage()
   );
@@ -181,7 +182,6 @@ export default function Dashboard(props) {
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       const storedLanguage = localStorage.getItem("language");
-
       handleLanguageChange(storedLanguage);
     }
   }, [currentLanguage]);
@@ -189,12 +189,10 @@ export default function Dashboard(props) {
     return language === "ar" ? rtlTheme : defaultTheme;
   };
   const theme = getTheme(currentLanguage);
-
   const handleOpenLangMenu = (event) => {
     console.log("reachedreached");
     setAnchorElLang(event.currentTarget);
   };
-
   const handleCloseLangMenu = () => {
     setAnchorElLang(null);
   };
@@ -206,7 +204,10 @@ export default function Dashboard(props) {
       .post("http://192.168.1.66:8080/api/v1/bh/user/logout", "", {
         withCredentials: true,
       })
-      .then(() => router.push("/SignIn"));
+      .then(() => {
+        setProfile(null);
+        router.push("/SignIn");
+      });
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -352,7 +353,8 @@ export default function Dashboard(props) {
           handleLogout={handleLogout}
           handleOpenUserMenu={handleOpenUserMenu}
         />
-        {router.pathname.includes("SignIn") ? (
+        {router.pathname.includes("SignIn") ||
+        router.pathname.includes("SignUp") ? (
           ""
         ) : (
           <Header

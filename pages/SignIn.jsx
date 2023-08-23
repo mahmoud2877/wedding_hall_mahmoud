@@ -31,7 +31,7 @@ const defaultTheme = createTheme({
 export default function SignIn() {
   const { t } = useTranslation();
   const schema = yup.object().shape({
-    email: yup.string().required(t("emailRequired")).email(t("emailInvalid")),
+    // email: yup.string().required(t("emailRequired")).email(t("emailInvalid")),
     password: yup.string().required(t("passwordRequired")),
   });
   const { setProfile } = React.useContext(authContext);
@@ -55,7 +55,8 @@ export default function SignIn() {
         withCredentials: true,
       })
       .then((response) => {
-        setProfile(response.data.data.user);
+        console.log(response.data.data.users, "response.data.data.use");
+        setProfile(response.data.data.users);
         response.data.token ? router.push("/") : router.push("/SignIn");
       })
       .catch(function (error) {

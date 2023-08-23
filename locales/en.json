@@ -7,6 +7,7 @@
   "signIn.signUp": "Don't have an account? Sign up",
   "signIn.error": "An error occurred: {{error}}",
   "signUp.title": "Sign Up",
+  "signUp.phone": "phone",
   "signUp.name": "Name",
   "signUp.email": "Email Address",
   "signUp.password": "Password",
@@ -171,5 +172,7 @@
   "outdoor": "Outdoor",
   "session": "Session",
   "LocationType": "Location Type",
-  "drawer.SignUpNow": "Sign up for sale and discount"
+  "drawer.SignUpNow": "Sign up for sale and discount",
+  "drawer.SignInNow": "signIn for offers and discounts",
+  "navbar.searchbyname": "Search By Name"
 }
