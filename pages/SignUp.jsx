@@ -203,7 +203,7 @@ export default function SignUp() {
                   )}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <Controller
                   name="phone"
                   control={control}
@@ -222,7 +222,7 @@ export default function SignUp() {
                     />
                   )}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <Controller
                   name="image"

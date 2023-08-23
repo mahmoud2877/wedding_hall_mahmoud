@@ -234,7 +234,7 @@ function MyApp({ Component, pageProps }) {
   const getStoredLanguage = () => {
     if (typeof window !== "undefined") {
       const storedLanguage = localStorage.getItem("language");
-      return storedLanguage || i18n.options.fallbackLng;
+      return storedLanguage || "ar";
     }
   };
 

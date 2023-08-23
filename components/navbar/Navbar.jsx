@@ -247,7 +247,7 @@ const Navbar = ({
                 >
                   <Avatar
                     alt={currentLanguage}
-                    src={selectedLanguageIcon || "/icons/language.png"}
+                    src={selectedLanguageIcon || "/icons/ar.png"}
                   />
                 </IconButton>
               </Tooltip>

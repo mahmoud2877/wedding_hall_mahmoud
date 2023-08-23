@@ -163,23 +163,19 @@ const HallPreview = () => {
 
   return (
     <>
-      <ListSearch />
-      {location === "" ? null : (
-        <Grid container spacing={2} sx={{ mt: 2 }}>
-          <Grid item xs={12}>
-            <Card>
-              <CardMedia
-                component="iframe"
-                src={location}
-                height="450"
-                allowFullScreen
-              />
-            </Card>
-          </Grid>
-        </Grid>
-      )}
       <Grid container spacing={2} sx={{ mt: 2 }}>
-        <Grid item xs={12}>
+        <Grid xs={3}>
+          <ListSearch />
+          <Card>
+            <CardMedia
+              component="iframe"
+              src={location}
+              height="450"
+              allowFullScreen
+            />
+          </Card>
+        </Grid>
+        <Grid item xs={8}>
           <ImageList
             sx={{
               width: "90%",
@@ -255,42 +251,17 @@ const HallPreview = () => {
               />
             )}
           </ImageList>
+          {/* <Card>
+              <CardMedia
+                component="iframe"
+                src={location}
+                height="450"
+                allowFullScreen
+              />
+            </Card> */}
         </Grid>
       </Grid>
-      <Grid container spacing={2} sx={{ mt: 2 }}>
-        <Grid item xs={12}>
-          <ImageList
-            sx={{ width: "100%", height: "100%" }}
-            cols={4}
-            style={{ height: "100%", overflow: "auto" }}
-          >
-            {hallthumb.length === 0 ? (
-              <h3 style={{ margin: 20 }}>{t("hall_preview.no_videos")}</h3>
-            ) : (
-              hallthumb.map((videoThumb) => (
-                <ImageListItem key={videoThumb.id}>
-                  <Card onClick={() => handleVideoClick(videoThumb.value)}>
-                    <CardMedia
-                      component="img"
-                      src={`${thumbSrc}${videoThumb.value}`}
-                      title={videoThumb.value}
-                      autoPlay={false}
-                      controls
-                    />
-                    <Typography variant="subtitle1">
-                      {videoThumb.value}
-                    </Typography>
-                  </Card>
-                </ImageListItem>
-              ))
-            )}
-            <ShowVideoModal
-              video={selectedVideo}
-              onClose={handleCloseVideoModal}
-            />
-          </ImageList>
-        </Grid>
-      </Grid>
+
       <Grid container spacing={2} sx={{ mt: 2 }}>
         <Grid item xs={12}>
           <TextField

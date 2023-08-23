@@ -156,8 +156,11 @@ export default function Dashboard(props) {
     getCurrentLanguage()
   );
   const [selectedLanguageIcon, setSelectedLanguageIcon] = React.useState(
-    languages.find((lang) => lang.code === getCurrentLanguage())?.icon
+    !languages.find((lang) => lang.code === getCurrentLanguage())?.icon
+      ? "/icons/ar.png"
+      : languages.find((lang) => lang.code === getCurrentLanguage())?.icon
   );
+
   const filters = ["/HallPreview/[HallPreview]", "/"].includes(router.pathname);
 
   const { profile, setProfile } = React.useContext(authContext);
