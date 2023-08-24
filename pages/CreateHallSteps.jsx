@@ -11,7 +11,13 @@ import HallBasicInfo from "./HallBasicInfo";
 import HallAdvancedInfo from "./HallAdvancedInfo";
 import { useTranslation } from "react-i18next";
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#03a700",
+    },
+  },
+});
 
 export default function Checkout() {
   const { t } = useTranslation();

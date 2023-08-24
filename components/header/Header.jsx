@@ -20,9 +20,17 @@ import "../slider/slide.css";
 import axios from "axios";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import PageContext from "../../pages/PageContext";
+import { searchContext } from "@/pages/SearchContext";
 import { useRouter } from "next/router";
 
-import { IconButton, Tooltip, Avatar, MenuItem, Select } from "@mui/material";
+import {
+  IconButton,
+  Tooltip,
+  Avatar,
+  MenuItem,
+  Select,
+  Grid,
+} from "@mui/material";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import GroupsIcon from "@mui/icons-material/Groups";
 import SchoolIcon from "@mui/icons-material/School";
@@ -34,6 +42,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
 
 // import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 // import { useNavigate } from "react-router-dom";
@@ -76,6 +86,7 @@ const Header = ({
   });
 
   const { page } = React.useContext(PageContext);
+  const { search, setSearch } = React.useContext(searchContext);
 
   const { t } = useTranslation();
 
@@ -272,8 +283,11 @@ const Header = ({
     // if (cityId) {
     //   params.city = cityId;
     // }
+    console.log(search, "searchsearch");
 
     if (Object.keys(params).length >= 0) {
+      console.log(params, "paramsparams");
+      setSearch(params);
       axios
         .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
           withCredentials: true,
@@ -428,7 +442,11 @@ const Header = ({
               } `}
               onClick={() => handleFilter("wedding")}
             >
-              <AccessibilityNewOutlinedIcon />
+              <img
+                src="/icons/wedding.png"
+                alt="Icon"
+                className="icon_wedding"
+              />
               <span>{t("wedding")} </span>
             </button>
             <button
@@ -474,127 +492,151 @@ const Header = ({
         </div>
       </div>
       <form className="headerSearch" onSubmit={onSubmit}>
-        <div className="headerSearchItem">
-          <input
-            placeholder={t("navbar.searchbyname")}
-            className="headerSearchText headerSearchInputSelect  inputName"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
-          <SearchIcon className="headerIcon" />
-        </div>
-        <div className="headerSearchItem">
-          <select
-            className=" headerSearchText headerSearchInputSelect"
-            placeholder="choose government?"
-            onChange={(e) => onGovernorateChange(e)}
-          >
-            <option value="" disabled selected hidden>
-              {t("navbar.governorate")}
-            </option>
-            {governorateData.map((el) => (
-              <option value={el.id}>{el.governorate_name_en}</option>
-            ))}
-          </select>
-          <LocationCityIcon className="headerIcon" />
-        </div>
-        <div className="headerSearchItem">
-          <select
-            className=" headerSearchText headerSearchInputSelect"
-            onChange={(e) => onCityChange(e)}
-          >
-            <option value="" disabled selected hidden>
-              {t("navbar.city")}
-            </option>
-            {cityData.map((el) => (
-              <option value={el.id}>{el.city_name_en}</option>
-            ))}
-          </select>
-          <LocationCityIcon className="headerIcon" />
-        </div>
-        {/* <div className="headerSearchItem" ref={dateRef}>
-          <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
-          <span
-            onClick={() => setOpenDate(!openDate)}
-            className="headerSearchText"
-          >{`${format(dates[0].startDate, "dd-mm-yyyy")} to ${format(
-            dates[0].endDate,
-            "dd-mm-yyyy"
-          )}`}</span>
-          {openDate && (
-            <DateRange
-              editableDateInputs={false}
-              // setDates([item.selection])
-              onChange={(item) => handleDate(item)}
-              moveRangeOnFirstSelection={false}
-              ranges={dates}
-              className={`date ${direction}`}
-              minDate={new Date()}
-            />
-          )}
-        </div> */}
-        <div className="headerSearchItem">
-          {" "}
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              defaultValue={dayjs("2022/04/17")}
-              sx={{
-                // outline: "none", // Hide the outline
+        <Grid
+          sx={{
+            justifyContent: "center",
+            // marginTop: "-2rem",
+            width: "100%",
+            mx: "auto",
+          }}
+          container
+          spacing={2}
+          alignItems="center"
+          justifyContent="center"
+          direction={{ xs: "column", sm: "row" }}
+        >
+          {/* <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}>
+            <div className="headerSearchItem">
+              <input
+                placeholder={t("navbar.searchbyname")}
+                className="headerSearchText headerSearchInputSelect  inputName"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
+              <SearchIcon className="headerIcon" />
+            </div>
+          </Grid> */}
+          <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}>
+            <div className="headerSearchItem">
+              <select
+                className=" headerSearchText headerSearchInputSelect"
+                placeholder="choose government?"
+                onChange={(e) => onGovernorateChange(e)}
+              >
+                <option
+                  value=""
+                  disabled
+                  selected
+                  hidden
+                  className="headerSearchText"
+                >
+                  {t("navbar.governorate")}
+                </option>
+                {governorateData.map((el) => (
+                  <option value={el.id} className="headerSearchText">
+                    {el.governorate_name_en}
+                  </option>
+                ))}
+              </select>
+              <AssuredWorkloadIcon className="headerIcon" />
+            </div>
+          </Grid>
+          <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}>
+            <div className="headerSearchItem">
+              <select
+                className=" headerSearchText headerSearchInputSelect"
+                onChange={(e) => onCityChange(e)}
+              >
+                <option
+                  value=""
+                  disabled
+                  selected
+                  hidden
+                  className="headerSearchText"
+                >
+                  {t("navbar.city")}
+                </option>
+                {cityData.map((el) => (
+                  <option value={el.id} className="headerSearchText">
+                    {el.city_name_en}
+                  </option>
+                ))}
+              </select>
+              <LocationCityIcon className="headerIcon" />
+            </div>
+          </Grid>
+          <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}>
+            <div className="headerSearchItem">
+              {" "}
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  defaultValue={dayjs("2022/04/17")}
+                  sx={{
+                    // outline: "none", // Hide the outline
 
-                "& .MuiInputBase-root": {
-                  // outline: "none", // Hide outline for the input field
-                },
-                "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                  fontSize: "0.9rem",
+                    "& .MuiInputBase-root": {
+                      // outline: "none", // Hide outline for the input field
+                    },
+                    "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+                      border: "none",
+                      fontSize: "0.9rem",
+                      padding: "0px 0px",
+                      width: "100px",
 
-                  "&:hover": {
-                    borderColor: "transparent", // Hide border on hover
-                  },
-                },
-              }}
-            />
-          </LocalizationProvider>
-        </div>
+                      "&:hover": {
+                        borderColor: "transparent", // Hide border on hover
+                      },
+                    },
+                    "& .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
+                      width: "100px",
+                      fontSize: "15px",
+                    },
+                  }}
+                />
+              </LocalizationProvider>
+            </div>
+          </Grid>
+          <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}>
+            <div className="headerSearchItem" ref={guestRef}>
+              <span
+                onClick={() => setOpenOptions(!openOptions)}
+                className="headerSearchText"
+              >{`${options.adult} ${t("navbar.guestNumber")} `}</span>
+              {openOptions && (
+                <div className="options">
+                  <div className="optionItem">
+                    <span className="optionText">
+                      {t("navbar.guestNumber")}
+                    </span>
+                    <div className="optionCounter">
+                      <button
+                        disabled={options.adult <= 1}
+                        className="optionCounterButton"
+                        type="button"
+                        onClick={() => handleOption("adult", "d")}
+                      >
+                        -
+                      </button>
+                      <input
+                        className="optionCounterNumber"
+                        onChange={(e) =>
+                          handleOptionInput("adult", +e.target.value)
+                        }
+                        value={options.adult}
+                      />
 
-        <div className="headerSearchItem" ref={guestRef}>
-          <span
-            onClick={() => setOpenOptions(!openOptions)}
-            className="headerSearchText"
-          >{`${options.adult} ${t("navbar.guestNumber")} `}</span>
-          {openOptions && (
-            <div className="options">
-              <div className="optionItem">
-                <span className="optionText">{t("navbar.guestNumber")}</span>
-                <div className="optionCounter">
-                  <button
-                    disabled={options.adult <= 1}
-                    className="optionCounterButton"
-                    type="button"
-                    onClick={() => handleOption("adult", "d")}
-                  >
-                    -
-                  </button>
-                  <input
-                    className="optionCounterNumber"
-                    onChange={(e) =>
-                      handleOptionInput("adult", +e.target.value)
-                    }
-                    value={options.adult}
-                  />
-
-                  <button
-                    className="optionCounterButton"
-                    type="button"
-                    onClick={() => handleOption("adult", "i")}
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-              {/* <div className="optionItem">
+                      <button
+                        className="optionCounterButton"
+                        type="button"
+                        onClick={() => handleOption("adult", "i")}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  {/* <div className="optionItem">
                     <span className="optionText">Children</span>
                     <div className="optionCounter">
                       <button
@@ -636,15 +678,18 @@ const Header = ({
                       </button>
                     </div>
                   </div> */}
+                </div>
+              )}
+              <PersonAddAltIcon className="headerIcon" />
             </div>
-          )}
-          <FontAwesomeIcon icon={faPerson} className="headerIcon" />
-        </div>
-        {/* <div className="headerSearchItem"> */}
-        <button type="submit" className="headerBtn">
-          {t("navbar.submit")}
-        </button>
-        {/* </div> */}
+          </Grid>
+
+          {/* <div className="headerSearchItem"> */}
+          <button type="submit" className="headerBtn">
+            {t("navbar.submit")}
+          </button>
+          {/* </div> */}
+        </Grid>
       </form>
     </div>
     // </div>

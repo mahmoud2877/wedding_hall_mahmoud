@@ -31,6 +31,7 @@ import { ReservationModal } from "../ReservationModal";
 import { t } from "i18next";
 import { authContext } from "../AuthContext";
 import ListSearch from "@/components/component/List";
+import { searchContext } from "../SearchContext";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -44,6 +45,7 @@ const ExpandMore = styled((props) => {
 const HallPreview = () => {
   const [expanded, setExpanded] = React.useState(false);
   const { profile } = React.useContext(authContext);
+  const { search, setSearch } = React.useContext(searchContext);
   const [showAllImages, setShowAllImages] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -159,13 +161,13 @@ const HallPreview = () => {
         console.log(error);
       });
   }, [id]);
-  console.log("heeeeeeeeeeeeeeeeeeere");
+  console.log("heeeeeeeeeeeeeeeeeeere", search, "search");
 
   return (
     <>
       <Grid container spacing={2} sx={{ mt: 2 }}>
-        <Grid xs={3}>
-          <ListSearch />
+        <Grid xs={2} spacing={1} sm={3}>
+          <ListSearch search={search} />
           <Card>
             <CardMedia
               component="iframe"
@@ -175,7 +177,7 @@ const HallPreview = () => {
             />
           </Card>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={8} sm={9}>
           <ImageList
             sx={{
               width: "90%",

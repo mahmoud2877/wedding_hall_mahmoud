@@ -8,7 +8,7 @@
   "signIn.error": "حدث خطأ: {{error}}",
   "signUp.title": "إنشاء حساب",
   "signUp.name": "الاسم",
-  "signUp.email": "البريد الإلكتروني",
+  "signUp.email": " البريد الإلكتروني او رقم الهاتف",
   "signUp.password": "كلمة المرور",
   "signUp.button": "إنشاء حساب",
   "signUp.uploadImage": "تحميل الصورة",

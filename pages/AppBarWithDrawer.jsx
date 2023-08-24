@@ -30,6 +30,7 @@ import {
 import { useRouter } from "next/router";
 import axios from "axios";
 import { authContext } from "./AuthContext";
+import { searchContext } from "./SearchContext";
 import hallsContext from "./hall_filtered_hallsCotnext";
 import { CircularProgress, Grid, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
@@ -48,6 +49,7 @@ import Navbar from "@/components/navbar/Navbar";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import MailList from "@/components/mailList/MailList";
+
 import { useState, useEffect } from "react";
 
 const drawerWidth = 200;
@@ -162,8 +164,12 @@ export default function Dashboard(props) {
   );
 
   const filters = ["/HallPreview/[HallPreview]", "/"].includes(router.pathname);
-
+  const storedLanguage = localStorage.getItem("language");
+  if (!storedLanguage) {
+    localStorage.setItem("language", "ar");
+  }
   const { profile, setProfile } = React.useContext(authContext);
+  const { search, setSearch } = React.useContext(authContext);
   const handleLanguageChange = (code) => {
     handleCloseLangMenu();
 
@@ -237,63 +243,64 @@ export default function Dashboard(props) {
       );
   }, [setHalls]);
 
-  const onSubmit = (data) => {
-    setLoading(true);
+  // const onSubmit = (data) => {
+  //   setLoading(true);
 
-    const params = {
-      page: page,
-    };
-    if (currentLanguage === "en") {
-      params.governorate = data.governorate.governorate_name_en;
-    } else {
-      params.governorate = data.governorate.governorate_name_ar;
-    }
+  //   const params = {
+  //     page: page,
+  //   };
+  //   if (currentLanguage === "en") {
+  //     params.governorate = data.governorate.governorate_name_en;
+  //   } else {
+  //     params.governorate = data.governorate.governorate_name_ar;
+  //   }
 
-    for (const key of Object.keys(data)) {
-      if (data[key] !== "" && key !== "governorate" && data[key] !== null) {
-        params[key] = data[key];
-      }
-    }
+  //   for (const key of Object.keys(data)) {
+  //     if (data[key] !== "" && key !== "governorate" && data[key] !== null) {
+  //       params[key] = data[key];
+  //     }
+  //   }
 
-    if (Object.keys(params).length >= 0) {
-      axios
-        .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
-          withCredentials: true,
-          params,
-        })
-        .then((response) => {
-          setFilteredHalls(
-            response.data.data.data.filter(
-              (hall) => hall.wedding_infos.length > 0
-            )
-          );
-          setHalls([]);
-          router.push("/");
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    } else {
-      axios
-        .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
-          withCredentials: true,
-        })
-        .then((response) =>
-          setHalls(
-            response.data.data.data.filter(
-              (hall) => hall.wedding_infos.length > 0
-            )
-          )
-        );
-      setFilteredHalls([]);
+  //   if (Object.keys(params).length >= 0) {
+  //     setSearch(params);
+  //     axios
+  //       .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+  //         withCredentials: true,
+  //         params,
+  //       })
+  //       .then((response) => {
+  //         setFilteredHalls(
+  //           response.data.data.data.filter(
+  //             (hall) => hall.wedding_infos.length > 0
+  //           )
+  //         );
+  //         setHalls([]);
+  //         router.push("/");
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+  //       })
+  //       .finally(() => {
+  //         setLoading(false);
+  //       });
+  //   } else {
+  //     axios
+  //       .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+  //         withCredentials: true,
+  //       })
+  //       .then((response) =>
+  //         setHalls(
+  //           response.data.data.data.filter(
+  //             (hall) => hall.wedding_infos.length > 0
+  //           )
+  //         )
+  //       );
+  //     setFilteredHalls([]);
 
-      setLoading(false);
-      router.push("/");
-    }
-  };
+  //     setLoading(false);
+  //     router.push("/");
+  //   }
+  // };
   const handleDrawerOpen = () => {
     setOpen(true);
   };

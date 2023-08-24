@@ -9,7 +9,7 @@
   "signUp.title": "Sign Up",
   "signUp.phone": "phone",
   "signUp.name": "Name",
-  "signUp.email": "Email Address",
+  "signUp.email": "Email Address or Phone number",
   "signUp.password": "Password",
   "signUp.button": "Sign Up",
   "signUp.uploadImage": "Upload Image",
@@ -174,5 +174,5 @@
   "LocationType": "Location Type",
   "drawer.SignUpNow": "Sign up for sale and discount",
   "drawer.SignInNow": "signIn for offers and discounts",
-  "navbar.searchbyname": "Search By Name"
+  "navbar.searchbyname": "Name Search"
 }

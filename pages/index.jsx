@@ -146,6 +146,7 @@ function Home() {
                         display: "flex",
                         flexDirection: "column",
                       }}
+                      onClick={() => router.push(`/HallPreview/${hall.id}`)}
                     >
                       <CardMedia component="div">
                         <Carousal hall={hall} />
@@ -188,12 +189,12 @@ function Home() {
                           />
                         ) : null}
 
-                        <Button
+                        {/* <Button
                           onClick={() => router.push(`/HallPreview/${hall.id}`)}
                           size="small"
                         >
                           {t("home.view")}
-                        </Button>
+                        </Button> */}
                       </CardActions>
                     </Card>
                   </Grid>
@@ -206,6 +207,7 @@ function Home() {
                         display: "flex",
                         flexDirection: "column",
                       }}
+                      onClick={() => router.push(`/HallPreview/${hall.id}`)}
                     >
                       <CardMedia component="div">
                         <Carousal hall={hall} />
@@ -248,12 +250,12 @@ function Home() {
                           />
                         ) : null}
 
-                        <Button
+                        {/* <Button
                           onClick={() => router.push(`/HallPreview/${hall.id}`)}
                           size="small"
                         >
                           {t("home.view")}
-                        </Button>
+                        </Button> */}
                       </CardActions>
                     </Card>
                   </Grid>

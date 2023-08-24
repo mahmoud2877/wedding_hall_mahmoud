@@ -23,7 +23,7 @@ import Navbar from "@/components/navbar/Navbar";
 const defaultTheme = createTheme({
   palette: {
     primary: {
-      main: "#03a700",
+      main: "#02a768",
     },
   },
 });
@@ -36,15 +36,15 @@ export default function SignUp() {
   const [loading, setLoading] = React.useState(false);
   const schema = yup.object().shape({
     name: yup.string().required(t("nameRequired")),
-    email: yup.string().required(t("emailRequired")).email(t("emailInvalid")),
+    // email: yup.string().required(t("emailRequired")).email(t("emailInvalid")),
     password: yup
       .string()
       .required(t("passwordRequired"))
       .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, t("passwordInvalid")),
-    phone: yup
-      .string()
-      .matches(/^01[0-9]{9}$/, t("validation.phone.matches"))
-      .required(t("validation.phone.required")),
+    // phone: yup
+    //   .string()
+    //   .matches(/^01[0-9]{9}$/, t("validation.phone.matches"))
+    //   .required(t("validation.phone.required")),
   });
   const router = useRouter();
 
@@ -91,7 +91,7 @@ export default function SignUp() {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("image", data.image);
-    formData.append("phone", data.phone);
+    // formData.append("phone", data.phone);
     axios
       .post("http://192.168.1.66:8080/api/v1/bh/user/signup", formData, {
         withCredentials: true,
@@ -100,7 +100,7 @@ export default function SignUp() {
         },
       })
       .then((response) => {
-        setProfile(response.data.data.user);
+        setProfile(response.data.data.users);
         response.data.token ? router.push("/") : router.push("/SignUp");
       })
       .catch(function (response) {
@@ -132,7 +132,7 @@ export default function SignUp() {
             </Stack>
           ) : null}
 
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar sx={{ m: 1, bgcolor: "#02a768" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -223,7 +223,7 @@ export default function SignUp() {
                   )}
                 />
               </Grid> */}
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <Controller
                   name="image"
                   control={control}
@@ -261,7 +261,7 @@ export default function SignUp() {
                 >
                   {t("signUp.uploadImage")}
                 </Button>
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"

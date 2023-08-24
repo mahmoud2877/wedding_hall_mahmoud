@@ -9,6 +9,7 @@
   animation: imageAnimation 20s infinite;
 }
 .headerSearchInputSelect {
+  font-size: 20px;
   /* padding: 10px; */
   border: 1px solid #ccc;
   /* border-radius: 4px; */
@@ -17,6 +18,15 @@
   -moz-appearance: none;
   appearance: none;
   /* background: url("path_to_your_custom_arrow_icon.svg") no-repeat right center; */
+}
+.icon-element {
+  /* background-image: url("./icons/wedding.png"); */
+  width: 32px;
+  height: 32px;
+}
+.icon_wedding {
+  width: 25px;
+  height: 25px;
 }
 
 @keyframes imageAnimation {
@@ -108,7 +118,7 @@
 }
 
 .headerSearchItem {
-  height: 10px;
+  height: 30px;
 
   display: flex;
   align-items: center;
@@ -132,9 +142,14 @@
 }
 
 .headerSearchText {
+  font-size: 15px;
   color: #1a1818;
   cursor: pointer;
+  font-family: sans-serif;
   border: #ccc;
+}
+input::placeholder {
+  color: #1a1818; /* Change the placeholder text color to red */
 }
 .headerSearchText:focus {
   outline: none; /* This removes the default focus outline */

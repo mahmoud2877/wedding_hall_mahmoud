@@ -245,10 +245,7 @@ const Navbar = ({
                   aria-haspopup="true"
                   onClick={handleOpenLangMenu}
                 >
-                  <Avatar
-                    alt={currentLanguage}
-                    src={selectedLanguageIcon || "/icons/ar.png"}
-                  />
+                  <Avatar alt={currentLanguage} src={selectedLanguageIcon} />
                 </IconButton>
               </Tooltip>
               <Menu

@@ -192,6 +192,7 @@ import React from "react";
 import { IdProvider } from "./IdContext";
 import { useRouter } from "next/router";
 import { AuthProvider } from "./AuthContext";
+import { SearchProvider } from "./SearchContext";
 import { HallsProvider } from "./hall_filtered_hallsCotnext";
 import NextNProgress from "nextjs-progressbar";
 import { I18nextProvider } from "react-i18next";
@@ -282,13 +283,15 @@ function MyApp({ Component, pageProps }) {
               <PageProvider>
                 <HallsProvider>
                   <AuthProvider>
-                    <IdProvider>
-                      <AppBarWithDrawer
-                        component={Component}
-                        pageProps={pageProps}
-                        t={t}
-                      />
-                    </IdProvider>
+                    <SearchProvider>
+                      <IdProvider>
+                        <AppBarWithDrawer
+                          component={Component}
+                          pageProps={pageProps}
+                          t={t}
+                        />
+                      </IdProvider>
+                    </SearchProvider>
                   </AuthProvider>
                 </HallsProvider>
               </PageProvider>
@@ -303,13 +306,15 @@ function MyApp({ Component, pageProps }) {
               <PageProvider>
                 <HallsProvider>
                   <AuthProvider>
-                    <IdProvider>
-                      <AppBarWithDrawer
-                        component={Component}
-                        pageProps={pageProps}
-                        t={t}
-                      />
-                    </IdProvider>
+                    <SearchProvider>
+                      <IdProvider>
+                        <AppBarWithDrawer
+                          component={Component}
+                          pageProps={pageProps}
+                          t={t}
+                        />
+                      </IdProvider>
+                    </SearchProvider>
                   </AuthProvider>
                 </HallsProvider>
               </PageProvider>
@@ -331,9 +336,11 @@ function MyApp({ Component, pageProps }) {
               <PageProvider>
                 <HallsProvider>
                   <AuthProvider>
-                    <IdProvider>
-                      <Component {...pageProps} t={t} />
-                    </IdProvider>
+                    <SearchProvider>
+                      <IdProvider>
+                        <Component {...pageProps} t={t} />
+                      </IdProvider>
+                    </SearchProvider>
                   </AuthProvider>
                 </HallsProvider>
               </PageProvider>
@@ -348,9 +355,11 @@ function MyApp({ Component, pageProps }) {
               <PageProvider>
                 <HallsProvider>
                   <AuthProvider>
-                    <IdProvider>
-                      <Component {...pageProps} t={t} />
-                    </IdProvider>
+                    <SearchProvider>
+                      <IdProvider>
+                        <Component {...pageProps} t={t} />
+                      </IdProvider>
+                    </SearchProvider>
                   </AuthProvider>
                 </HallsProvider>
               </PageProvider>

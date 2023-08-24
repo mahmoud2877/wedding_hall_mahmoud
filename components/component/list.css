@@ -81,3 +81,14 @@
 .listResult {
   flex: 3;
 }
+
+.inputlistSearch {
+  width: 100%;
+  display: flex;
+  background: whitesmoke;
+  border-radius: 10px;
+}
+.inputSearchList {
+  width: 130px;
+  height: 25px;
+}

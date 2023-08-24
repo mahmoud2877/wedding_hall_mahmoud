@@ -59,7 +59,7 @@ export default function AddressForm({ handleNext }) {
       phone: "",
       min_guest: "",
       max_guest: "",
-      locationType: "",
+      feature: "",
     },
   });
 
@@ -136,6 +136,17 @@ export default function AddressForm({ handleNext }) {
       .finally(() => {
         setLoading(false);
       });
+  };
+  const [additionalFields, setAdditionalFields] = React.useState([]);
+
+  const handleAddField = () => {
+    setAdditionalFields([...additionalFields, ""]);
+  };
+
+  const handleAdditionalFieldChange = (index, value) => {
+    const updatedFields = [...additionalFields];
+    updatedFields[index] = value;
+    setAdditionalFields(updatedFields);
   };
 
   return (
@@ -255,21 +266,57 @@ export default function AddressForm({ handleNext }) {
                 helperText={errors.max_guest?.message}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <Autocomplete
                 options={[t("indoor"), t("outdoor"), t("villa"), t("session")]}
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label={t("LocationType")}
-                    {...register("locationType")}
+                    label={t("feature")}
+                    {...register("feature")}
                   />
                 )}
                 onInputChange={(event, value) => {
-                  setValue("locationType", value);
+                  setValue("feature", value);
+                }}
+              />
+            </Grid> */}
+            <Grid item xs={12} sm={6}>
+              <Autocomplete
+                options={["indoor", "outdoor", "villa", "session"]}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Feature"
+                    // {...register("feature")}
+                  />
+                )}
+                onInputChange={(event, value) => {
+                  // setValue("feature", value);
                 }}
               />
             </Grid>
+
+            <Button onClick={handleAddField}>Show Additional Field</Button>
+            {additionalFields.map((fieldValue, index) => (
+              <Grid item xs={12} sm={6}>
+                <Autocomplete
+                  key={index}
+                  options={["indoor", "outdoor", "villa", "session"]}
+                  value={fieldValue}
+                  onChange={(_, value) =>
+                    handleAdditionalFieldChange(index, value)
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={`Additional Field ${index + 1}`}
+                      // {...register("additionalField")}
+                    />
+                  )}
+                />
+              </Grid>
+            ))}
             <Grid item xs={12} sx={{ textAlign: "center" }}>
               <Button variant="contained" type="submit" disabled={loading}>
                 {loading ? (
