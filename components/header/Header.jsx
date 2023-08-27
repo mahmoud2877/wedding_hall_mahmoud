@@ -204,6 +204,9 @@ const Header = ({
     const params = {
       page: page,
     };
+    const paramsContext = {
+      page: page,
+    };
 
     const selectedEl = governorateData.find((el) => {
       return el.id == governmentId;
@@ -212,8 +215,10 @@ const Header = ({
     if (selectedEl) {
       if (currentLanguage === "en") {
         params.governorate = selectedEl.governorate_name_en;
+        paramsContext.governorate = selectedEl.id;
       } else {
         params.governorate = selectedEl.governorate_name_ar;
+        paramsContext.governorate = selectedEl.id;
       }
     }
     const selectedCity = cityData.find((el) => {
@@ -223,8 +228,10 @@ const Header = ({
     if (selectedCity) {
       if (currentLanguage === "en") {
         params.city = selectedCity.city_name_en;
+        paramsContext.city = selectedCity.id;
       } else {
         params.city = selectedCity.city_name_ar;
+        paramsContext.city = selectedCity.id;
       }
     }
 
@@ -269,13 +276,16 @@ const Header = ({
 
     if (options.adult) {
       params.guest = options.adult;
+      paramsContext.guest = options.adult;
     }
 
     if (name) {
       params.name = name;
+      paramsContext.name = name;
     }
     if (featureQuery) {
       params.feature = featureQuery;
+      paramsContext.feature = featureQuery;
     }
     // if (governmentId) {
     //   params.governorate = governmentId;
@@ -287,7 +297,7 @@ const Header = ({
 
     if (Object.keys(params).length >= 0) {
       console.log(params, "paramsparams");
-      setSearch(params);
+      setSearch(paramsContext);
       axios
         .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
           withCredentials: true,
@@ -491,8 +501,12 @@ const Header = ({
           </>
         </div>
       </div>
-      <form className="headerSearch" onSubmit={onSubmit}>
-        <Grid
+
+      {router.pathname.includes("HallPreview") ? (
+        ""
+      ) : (
+        <form className="headerSearch" onSubmit={onSubmit}>
+          {/* <Grid
           sx={{
             justifyContent: "center",
             // marginTop: "-2rem",
@@ -504,139 +518,137 @@ const Header = ({
           alignItems="center"
           justifyContent="center"
           direction={{ xs: "column", sm: "row" }}
-        >
-          {/* <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}>
-            <div className="headerSearchItem">
-              <input
-                placeholder={t("navbar.searchbyname")}
-                className="headerSearchText headerSearchInputSelect  inputName"
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
+        > */}
+          {/* <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}> */}
+          <div className="headerSearchItem">
+            <input
+              placeholder={t("navbar.searchbyname")}
+              className="headerSearchText headerSearchInputSelect  inputName"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
+            <SearchIcon className="headerIcon" />
+          </div>
+          {/* </Grid>  */}
+          {/* <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}> */}
+          <div className="headerSearchItem">
+            <select
+              className=" headerSearchText headerSearchInputSelect"
+              placeholder="choose government?"
+              onChange={(e) => onGovernorateChange(e)}
+            >
+              <option
+                value=""
+                disabled
+                selected
+                hidden
+                className="headerSearchText"
+              >
+                {t("navbar.governorate")}
+              </option>
+              {governorateData.map((el) => (
+                <option value={el.id} className="headerSearchText">
+                  {el.governorate_name_en}
+                </option>
+              ))}
+            </select>
+            <AssuredWorkloadIcon className="headerIcon" />
+          </div>
+          {/* </Grid> */}
+          {/* <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}> */}
+          <div className="headerSearchItem">
+            <select
+              className=" headerSearchText headerSearchInputSelect"
+              onChange={(e) => onCityChange(e)}
+            >
+              <option
+                value=""
+                disabled
+                selected
+                hidden
+                className="headerSearchText"
+              >
+                {t("navbar.city")}
+              </option>
+              {cityData.map((el) => (
+                <option value={el.id} className="headerSearchText">
+                  {el.city_name_en}
+                </option>
+              ))}
+            </select>
+            <LocationCityIcon className="headerIcon" />
+          </div>
+          {/* </Grid> */}
+          {/* <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}> */}
+          <div className="headerSearchItem">
+            {" "}
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                defaultValue={dayjs("2022/04/17")}
+                sx={{
+                  // outline: "none", // Hide the outline
+
+                  "& .MuiInputBase-root": {
+                    // outline: "none", // Hide outline for the input field
+                  },
+                  "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+                    border: "none",
+                    fontSize: "0.9rem",
+                    padding: "0px 0px",
+                    width: "100px",
+
+                    "&:hover": {
+                      borderColor: "transparent", // Hide border on hover
+                    },
+                  },
+                  "& .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
+                    width: "100px",
+                    fontSize: "15px",
+                  },
                 }}
               />
-              <SearchIcon className="headerIcon" />
-            </div>
-          </Grid> */}
-          <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}>
-            <div className="headerSearchItem">
-              <select
-                className=" headerSearchText headerSearchInputSelect"
-                placeholder="choose government?"
-                onChange={(e) => onGovernorateChange(e)}
-              >
-                <option
-                  value=""
-                  disabled
-                  selected
-                  hidden
-                  className="headerSearchText"
-                >
-                  {t("navbar.governorate")}
-                </option>
-                {governorateData.map((el) => (
-                  <option value={el.id} className="headerSearchText">
-                    {el.governorate_name_en}
-                  </option>
-                ))}
-              </select>
-              <AssuredWorkloadIcon className="headerIcon" />
-            </div>
-          </Grid>
-          <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}>
-            <div className="headerSearchItem">
-              <select
-                className=" headerSearchText headerSearchInputSelect"
-                onChange={(e) => onCityChange(e)}
-              >
-                <option
-                  value=""
-                  disabled
-                  selected
-                  hidden
-                  className="headerSearchText"
-                >
-                  {t("navbar.city")}
-                </option>
-                {cityData.map((el) => (
-                  <option value={el.id} className="headerSearchText">
-                    {el.city_name_en}
-                  </option>
-                ))}
-              </select>
-              <LocationCityIcon className="headerIcon" />
-            </div>
-          </Grid>
-          <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}>
-            <div className="headerSearchItem">
-              {" "}
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  defaultValue={dayjs("2022/04/17")}
-                  sx={{
-                    // outline: "none", // Hide the outline
+            </LocalizationProvider>
+          </div>
+          {/* // </Grid> */}
+          {/* <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}> */}
+          <div className="headerSearchItem" ref={guestRef}>
+            <span
+              onClick={() => setOpenOptions(!openOptions)}
+              className="headerSearchText"
+            >{`${options.adult} ${t("navbar.guestNumber")} `}</span>
+            {openOptions && (
+              <div className="options">
+                <div className="optionItem">
+                  <span className="optionText">{t("navbar.guestNumber")}</span>
+                  <div className="optionCounter">
+                    <button
+                      disabled={options.adult <= 1}
+                      className="optionCounterButton"
+                      type="button"
+                      onClick={() => handleOption("adult", "d")}
+                    >
+                      -
+                    </button>
+                    <input
+                      className="optionCounterNumber"
+                      onChange={(e) =>
+                        handleOptionInput("adult", +e.target.value)
+                      }
+                      value={options.adult}
+                    />
 
-                    "& .MuiInputBase-root": {
-                      // outline: "none", // Hide outline for the input field
-                    },
-                    "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
-                      border: "none",
-                      fontSize: "0.9rem",
-                      padding: "0px 0px",
-                      width: "100px",
-
-                      "&:hover": {
-                        borderColor: "transparent", // Hide border on hover
-                      },
-                    },
-                    "& .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
-                      width: "100px",
-                      fontSize: "15px",
-                    },
-                  }}
-                />
-              </LocalizationProvider>
-            </div>
-          </Grid>
-          <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}>
-            <div className="headerSearchItem" ref={guestRef}>
-              <span
-                onClick={() => setOpenOptions(!openOptions)}
-                className="headerSearchText"
-              >{`${options.adult} ${t("navbar.guestNumber")} `}</span>
-              {openOptions && (
-                <div className="options">
-                  <div className="optionItem">
-                    <span className="optionText">
-                      {t("navbar.guestNumber")}
-                    </span>
-                    <div className="optionCounter">
-                      <button
-                        disabled={options.adult <= 1}
-                        className="optionCounterButton"
-                        type="button"
-                        onClick={() => handleOption("adult", "d")}
-                      >
-                        -
-                      </button>
-                      <input
-                        className="optionCounterNumber"
-                        onChange={(e) =>
-                          handleOptionInput("adult", +e.target.value)
-                        }
-                        value={options.adult}
-                      />
-
-                      <button
-                        className="optionCounterButton"
-                        type="button"
-                        onClick={() => handleOption("adult", "i")}
-                      >
-                        +
-                      </button>
-                    </div>
+                    <button
+                      className="optionCounterButton"
+                      type="button"
+                      onClick={() => handleOption("adult", "i")}
+                    >
+                      +
+                    </button>
                   </div>
-                  {/* <div className="optionItem">
+                </div>
+                {/* <div className="optionItem">
                     <span className="optionText">Children</span>
                     <div className="optionCounter">
                       <button
@@ -678,19 +690,20 @@ const Header = ({
                       </button>
                     </div>
                   </div> */}
-                </div>
-              )}
-              <PersonAddAltIcon className="headerIcon" />
-            </div>
-          </Grid>
+              </div>
+            )}
+            <PersonAddAltIcon className="headerIcon" />
+          </div>
+          {/* // </Grid> */}
 
           {/* <div className="headerSearchItem"> */}
           <button type="submit" className="headerBtn">
             {t("navbar.submit")}
           </button>
           {/* </div> */}
-        </Grid>
-      </form>
+          {/* // </Grid> */}
+        </form>
+      )}
     </div>
     // </div>
     //   <button className="prev-button">&#10094;</button>

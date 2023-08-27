@@ -364,7 +364,8 @@ export default function Dashboard(props) {
           handleOpenUserMenu={handleOpenUserMenu}
         />
         {router.pathname.includes("SignIn") ||
-        router.pathname.includes("SignUp") ? (
+        router.pathname.includes("SignUp") ||
+        router.pathname.includes("ForgetPassword") ? (
           ""
         ) : (
           <Header

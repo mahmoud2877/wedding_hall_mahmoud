@@ -14,19 +14,21 @@ import { Alert, CircularProgress, Stack } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Navbar from "@/components/navbar/Navbar";
+import { useTranslation } from "next-i18next";
 const defaultTheme = createTheme({
   palette: {
     primary: {
-      main: "#03a700",
+      main: "#02a768",
     },
   },
 });
 
-export default function ForgetPassword({ t }) {
+export default function ForgetPassword() {
   const [loading, setLoading] = React.useState(false);
   const [successMessage, setSuccessMessage] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
   const [disableSubmit, setDisableSubmit] = React.useState(false);
+  const { t } = useTranslation();
   const schema = yup.object().shape({
     email: yup.string().required(t("emailRequired")).email(t("emailInvalid")),
   });

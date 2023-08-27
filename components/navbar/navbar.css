@@ -26,10 +26,16 @@
   color: #003580;
 }
 .img {
-  width: 160px;
+  max-width: 160px;
+  width: 45%;
+  min-width: 100px;
   height: 30px;
 }
-
+.imggggg {
+  max-width: 160px;
+  width: 45%;
+  min-width: 90px;
+}
 .header-container {
   display: flex;
   align-items: center;
@@ -99,4 +105,5 @@
 .navItems {
   display: flex;
   align-items: center;
+  margin: 10px;
 }

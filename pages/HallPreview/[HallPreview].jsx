@@ -32,6 +32,7 @@ import { t } from "i18next";
 import { authContext } from "../AuthContext";
 import ListSearch from "@/components/component/List";
 import { searchContext } from "../SearchContext";
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -166,21 +167,22 @@ const HallPreview = () => {
   return (
     <>
       <Grid container spacing={2} sx={{ mt: 2 }}>
-        <Grid xs={2} spacing={1} sm={3}>
+        <Grid xs={12} spacing={1} sm={3}>
           <ListSearch search={search} />
           <Card>
             <CardMedia
               component="iframe"
               src={location}
-              height="450"
+              height="200"
               allowFullScreen
             />
           </Card>
         </Grid>
-        <Grid item xs={8} sm={9}>
+        <Grid item xs={8} sm={9} sx={{ p: "none", mt: -2 }}>
           <ImageList
             sx={{
               width: "90%",
+              margin: "5px",
               height: hallImages.length > 0 ? "auto" : "auto",
             }}
             cols={3}

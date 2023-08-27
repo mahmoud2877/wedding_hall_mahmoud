@@ -19,6 +19,7 @@
   position: static;
   top: 10px;
   height: max-content;
+  margin-bottom: 10px;
 }
 
 .lsTitle {
@@ -76,6 +77,7 @@
   width: 100%;
   font-weight: 500;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .listResult {

@@ -94,8 +94,10 @@ const Navbar = ({
               <img
                 src="/logo/logo.png"
                 alt="Halls Logo"
-                width="160"
-                height="30"
+                className="imggggg"
+                // width="45%"
+                // max-width="160"
+                // height="30"
                 onClick={() => router.push("/")}
               />
             </h1>
@@ -144,8 +146,17 @@ const Navbar = ({
                   aria-controls="menu-language"
                   aria-haspopup="true"
                   onClick={handleOpenLangMenu}
+                  sx={{
+                    width: "20%",
+                    maxWidth: "50px",
+                    "& .css-1pqm26d-MuiAvatar-img ": {
+                      width: "100%",
+                      height: "auto",
+                    },
+                  }}
                 >
                   <Avatar
+                    sx={{ width: "100%", maxWidth: "100%", height: "none" }}
                     alt={currentLanguage}
                     src={selectedLanguageIcon || "/icons/language.png"}
                   />
@@ -244,8 +255,20 @@ const Navbar = ({
                   aria-controls="menu-language"
                   aria-haspopup="true"
                   onClick={handleOpenLangMenu}
+                  sx={{
+                    width: "20%",
+                    maxWidth: "50px",
+                    "& .css-1pqm26d-MuiAvatar-img ": {
+                      width: "100%",
+                      height: "auto",
+                    },
+                  }}
                 >
-                  <Avatar alt={currentLanguage} src={selectedLanguageIcon} />
+                  <Avatar
+                    sx={{ width: "100%", maxWidth: "100%", height: "none" }}
+                    alt={currentLanguage}
+                    src={selectedLanguageIcon}
+                  />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -275,6 +298,7 @@ const Navbar = ({
                 color="inherit"
                 sx={{
                   p: 2,
+
                   "@media (max-width: 1280px)": {
                     fontSize: "0.6rem",
                     // padding: "10px 20px",

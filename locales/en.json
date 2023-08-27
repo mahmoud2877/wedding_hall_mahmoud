@@ -174,5 +174,7 @@
   "LocationType": "Location Type",
   "drawer.SignUpNow": "Sign up for sale and discount",
   "drawer.SignInNow": "signIn for offers and discounts",
-  "navbar.searchbyname": "Name Search"
+  "navbar.searchbyname": "Name Search",
+  "list.Search": "Search",
+  "list.government": "Government"
 }

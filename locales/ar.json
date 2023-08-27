@@ -175,5 +175,7 @@
   "drawer.SignUpNow": "سجل الدخول عرض",
   "signUp.phone": "رقم الهاتف",
   "drawer.SignInNow": "سجل الدخول للحصول علي الخصومات",
-  "navbar.searchbyname": "ابحث عن قاعة"
+  "navbar.searchbyname": "ابحث عن قاعة",
+  "list.Search": "البحث",
+  "list.government": "المحافظة"
 }
