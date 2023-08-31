@@ -82,7 +82,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const defaultTheme = createTheme({
   palette: {
     primary: {
-      main: "#03a700",
+      main: "#02a768",
     },
   },
   direction: "ltr",
@@ -91,7 +91,7 @@ const defaultTheme = createTheme({
 const rtlTheme = createTheme({
   palette: {
     primary: {
-      main: "#03a700",
+      main: "#02a768",
     },
   },
   direction: "rtl",
@@ -215,6 +215,7 @@ export default function Dashboard(props) {
       })
       .then(() => {
         setProfile(null);
+        setAnchorElUser(null);
         router.push("/SignIn");
       });
   };
@@ -365,7 +366,9 @@ export default function Dashboard(props) {
         />
         {router.pathname.includes("SignIn") ||
         router.pathname.includes("SignUp") ||
-        router.pathname.includes("ForgetPassword") ? (
+        router.pathname.includes("ForgetPassword") ||
+        router.pathname.includes("CreateHallSteps") ||
+        router.pathname.includes("UserHalls") ? (
           ""
         ) : (
           <Header

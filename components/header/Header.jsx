@@ -67,16 +67,47 @@ const Header = ({
       key: "selection",
     },
   ]);
+  const [valueDate, setValueDate] = useState(Date.now());
   const [value, setValue] = useState(new Date());
   const [governmentId, setGovernmentId] = useState("");
   const [cityId, setCityId] = useState("");
   const [featureQuery, setFeatureQuery] = useState("wedding");
+  const [governorate, setgovernorate] = useState("");
+  const [city, setcity] = useState("");
+  const { search, setSearch } = useContext(searchContext);
   const [name, setName] = useState("");
   const router = useRouter();
   const dateRef = useRef(null);
   const guestRef = useRef(null);
+  console.log(name, "namenamename", search);
 
-  console.log(dates[0].startDate, "datesdates");
+  useEffect(() => {
+    if (search.name) {
+      setName(search.name);
+    }
+    if (search.governorate) {
+      setgovernorate(search.governorate);
+    }
+    if (search.city) {
+      setcity(search.city);
+    }
+    if (search.guest) {
+      setOptions({
+        adult: search.guest,
+        children: 0,
+        room: 1,
+      });
+    }
+    if (search.date) {
+      setValueDate(new Date(search.date));
+    }
+  }, [search]);
+  // if (search.name) {
+  //   setName(search.name);
+  // }
+  // if(search)
+
+  console.log(valueDate, "++++++datesdates");
 
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
@@ -86,7 +117,6 @@ const Header = ({
   });
 
   const { page } = React.useContext(PageContext);
-  const { search, setSearch } = React.useContext(searchContext);
 
   const { t } = useTranslation();
 
@@ -155,7 +185,7 @@ const Header = ({
     setOptions((prev) => {
       return {
         ...prev,
-        [name]: operation === "i" ? options[name] + 1 : options[name] - 1,
+        [name]: operation === "i" ? options[name] + 50 : options[name] - 50,
       };
     });
   };
@@ -215,10 +245,10 @@ const Header = ({
     if (selectedEl) {
       if (currentLanguage === "en") {
         params.governorate = selectedEl.governorate_name_en;
-        paramsContext.governorate = selectedEl.id;
+        paramsContext.governorate = selectedEl.governorate_name_en;
       } else {
         params.governorate = selectedEl.governorate_name_ar;
-        paramsContext.governorate = selectedEl.id;
+        paramsContext.governorate = selectedEl.governorate_name_ar;
       }
     }
     const selectedCity = cityData.find((el) => {
@@ -228,10 +258,10 @@ const Header = ({
     if (selectedCity) {
       if (currentLanguage === "en") {
         params.city = selectedCity.city_name_en;
-        paramsContext.city = selectedCity.id;
+        paramsContext.city = selectedCity.city_name_en;
       } else {
         params.city = selectedCity.city_name_ar;
-        paramsContext.city = selectedCity.id;
+        paramsContext.city = selectedCity.city_name_ar;
       }
     }
 
@@ -248,7 +278,7 @@ const Header = ({
       new Date(dates[0].endDate) !== new Date()
     );
 
-    if (new Date(dates[0].endDate).getDate() !== new Date().getDate()) {
+    if (new Date(valueDate).getDate() !== new Date().getDate()) {
       // const selectedDate = new Date(dates.startDate);
       // const selectedEnd = new Date(dates.endDate);
 
@@ -259,18 +289,19 @@ const Header = ({
       //     day: "numeric",
       //   })
       //   .replace(/\//g, "-");
-      console.log(dates[0].startDate, "sssssssssssssst");
+      console.log(valueDate, "sssssssssssssst");
       function formatDate(date) {
-        const day = date.getDate();
-        const month = date.getMonth() + 1; // Months are zero-indexed
-        const year = date.getFullYear();
+        const day = new Date(date).getDate();
+        const month = new Date(date).getMonth() + 1; // Months are zero-indexed
+        const year = new Date(date).getFullYear();
         return `${year}-${month}-${day}`;
       }
-      const startDateEff = formatDate(dates[0].startDate);
-      const endDateEff = formatDate(dates[0].endDate);
-      params.startEff = startDateEff;
-      params.endEff = endDateEff;
-      console.log(startDateEff, endDateEff);
+      const startDateEff = formatDate(valueDate);
+      // const endDateEff = formatDate(dates[0].endDate);
+      params.effectDate = startDateEff;
+      paramsContext.date = valueDate;
+      // params.endEff = endDateEff;
+      // console.log(startDateEff, endDateEff);
       console.log(params, "params");
     }
 
@@ -287,16 +318,11 @@ const Header = ({
       params.feature = featureQuery;
       paramsContext.feature = featureQuery;
     }
-    // if (governmentId) {
-    //   params.governorate = governmentId;
-    // }
-    // if (cityId) {
-    //   params.city = cityId;
-    // }
+
     console.log(search, "searchsearch");
 
     if (Object.keys(params).length >= 0) {
-      console.log(params, "paramsparams");
+      console.log(params, "paramsparams", paramsContext);
       setSearch(paramsContext);
       axios
         .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
@@ -441,65 +467,83 @@ const Header = ({
       });
   };
 
+  console.log(valueDate, "valueDatevalue");
+
   return (
     <div className="header">
-      <div className="background">
-        <div className="headerContainer">
-          <div className="headerList">
-            <button
-              className={`headerListItem ${
-                featureQuery === "wedding" ? "active" : ""
-              } `}
-              onClick={() => handleFilter("wedding")}
-            >
-              <img
-                src="/icons/wedding.png"
-                alt="Icon"
-                className="icon_wedding"
-              />
-              <span>{t("wedding")} </span>
-            </button>
-            <button
-              className={`headerListItem ${
-                featureQuery === "photoshoot" ? "active" : ""
-              } `}
-              onClick={() => handleFilter("photoshoot")}
-            >
-              <CameraAltIcon />
-              <span>{t("photoshoot")}</span>
-            </button>
-            <button
-              className={`headerListItem ${
-                featureQuery === "conferences" ? "active" : ""
-              } `}
-              onClick={() => handleFilter("conferences")}
-            >
-              <GroupsIcon />
-              <span>{t("conferences")}</span>
-            </button>
-            <button
-              className={`headerListItem ${
-                featureQuery === "graduation" ? "active" : ""
-              } `}
-              onClick={() => handleFilter("graduation")}
-            >
-              <SchoolIcon />
-              <span>{t("graduation")}</span>
-            </button>
-            {/* <div className="headerListItem">
+      <div className="background"></div>
+      <div className="headerContainer">
+        <div className="headerList">
+          <button
+            className={`headerListItem ${
+              featureQuery === "wedding" ? "active" : ""
+            } `}
+            onClick={() => handleFilter("wedding")}
+          >
+            <img src="/icons/wedding.png" alt="Icon" className="icon_wedding" />
+            <span className="nameHeader">{t("wedding")} </span>
+          </button>
+          <button
+            className={`headerListItem ${
+              featureQuery === "photoshoot" ? "active" : ""
+            } `}
+            onClick={() => handleFilter("photoshoot")}
+          >
+            <CameraAltIcon
+              sx={{
+                "@media (max-width:600px)": {
+                  width: 15,
+                  // Add styles specific to smaller screens
+                },
+              }}
+            />
+            <span className="nameHeader">{t("photoshoot")}</span>
+          </button>
+          <button
+            className={`headerListItem ${
+              featureQuery === "conferences" ? "active" : ""
+            } `}
+            onClick={() => handleFilter("conferences")}
+          >
+            <GroupsIcon
+              sx={{
+                "@media (max-width:600px)": {
+                  width: 15,
+                  // Add styles specific to smaller screens
+                },
+              }}
+            />
+            <span className="nameHeader">{t("conferences")}</span>
+          </button>
+          <button
+            className={`headerListItem ${
+              featureQuery === "graduation" ? "active" : ""
+            } `}
+            onClick={() => handleFilter("graduation")}
+          >
+            <SchoolIcon
+              sx={{
+                "@media (max-width:600px)": {
+                  width: 15,
+                  // Add styles specific to smaller screens
+                },
+              }}
+            />
+            <span className="nameHeader">{t("graduation")}</span>
+          </button>
+          {/* <div className="headerListItem">
             <FontAwesomeIcon icon={faTaxi} />
             <span>Airport taxis</span>
           </div> */}
-          </div>
-          <>
-            <h1 className="headerTitle">{t("searchHall")}</h1>
-            {/* <p className="headerDesc">
+        </div>
+        <>
+          <h1 className="headerTitle">{t("searchHall")}</h1>
+          {/* <p className="headerDesc">
             Get rewarded for your travels – unlock instant savings of 10% or
             more with a free Lamabooking account
           </p> */}
-            {/* {!user && <button className="headerBtn">Sign in / Register</button>} */}
-          </>
-        </div>
+          {/* {!user && <button className="headerBtn">Sign in / Register</button>} */}
+        </>
       </div>
 
       {router.pathname.includes("HallPreview") ? (
@@ -524,10 +568,9 @@ const Header = ({
             <input
               placeholder={t("navbar.searchbyname")}
               className="headerSearchText headerSearchInputSelect  inputName"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
+              defaultValue={name}
+              // value={name}
+              onChange={(e) => setName(e.target.value)}
             />
             <SearchIcon className="headerIcon" />
           </div>
@@ -546,7 +589,7 @@ const Header = ({
                 hidden
                 className="headerSearchText"
               >
-                {t("navbar.governorate")}
+                {governorate || t("navbar.governorate")}
               </option>
               {governorateData.map((el) => (
                 <option value={el.id} className="headerSearchText">
@@ -570,7 +613,7 @@ const Header = ({
                 hidden
                 className="headerSearchText"
               >
-                {t("navbar.city")}
+                {city || t("navbar.city")}
               </option>
               {cityData.map((el) => (
                 <option value={el.id} className="headerSearchText">
@@ -586,11 +629,58 @@ const Header = ({
             {" "}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                defaultValue={dayjs("2022/04/17")}
+                defaultValue={dayjs(valueDate)}
+                //  value={valueDate}
+                onChange={(newValue) => setValueDate(newValue)}
+                // sx={{
+                //   // outline: "none", // Hide the outline
+                //   display: "flex",
+                //   justifyContent: "space-between",
+                //   minWidth: "100%",
+                //   pr: "0",
+                //   "& .css-wtvjf1-MuiInputBase-root-MuiOutlinedInput-root": {
+                //     pr: "0",
+                //   },
+                //   "& .MuiInputBase-root": {
+                //     justifyContent: "space-between",
+                //     // outline: "none", // Hide outline for the input field
+                //   },
+                //   "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+                //     border: "none",
+                //     fontSize: "0.9rem",
+                //     padding: "0px 0px",
+                //     width: "100px",
+
+                //     "&:hover": {
+                //       borderColor: "transparent", // Hide border on hover
+                //     },
+                //   },
+                //   "& .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
+                //     width: "100px",
+                //     fontSize: "15px",
+                //     pl: "0",
+                //   },
+                //   "& .css-1laqsz7-MuiInputAdornment-root": {
+                //     ml: "0",
+                //     opacity: "40%",
+                //   },
+                //   "& .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root": {
+                //     p: "0",
+                //   },
+                //   disableMobileIcon: false,
+                // }}
+
                 sx={{
                   // outline: "none", // Hide the outline
-
+                  display: "flex",
+                  justifyContent: "space-between",
+                  minWidth: "100%",
+                  pr: "0",
+                  "& .css-wtvjf1-MuiInputBase-root-MuiOutlinedInput-root": {
+                    pr: "0",
+                  },
                   "& .MuiInputBase-root": {
+                    justifyContent: "space-between",
                     // outline: "none", // Hide outline for the input field
                   },
                   "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
@@ -606,7 +696,16 @@ const Header = ({
                   "& .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
                     width: "100px",
                     fontSize: "15px",
+                    pl: "0",
                   },
+                  "& .css-1laqsz7-MuiInputAdornment-root": {
+                    ml: "0",
+                    opacity: "40%",
+                  },
+                  "& .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root": {
+                    p: "0",
+                  },
+                  disableMobileIcon: false,
                 }}
               />
             </LocalizationProvider>
@@ -648,48 +747,6 @@ const Header = ({
                     </button>
                   </div>
                 </div>
-                {/* <div className="optionItem">
-                    <span className="optionText">Children</span>
-                    <div className="optionCounter">
-                      <button
-                        disabled={options.children <= 0}
-                        className="optionCounterButton"
-                        onClick={() => handleOption("children", "d")}
-                      >
-                        -
-                      </button>
-                      <span className="optionCounterNumber">
-                        {options.children}
-                      </span>
-                      <button
-                        className="optionCounterButton"
-                        onClick={() => handleOption("children", "i")}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                  <div className="optionItem">
-                    <span className="optionText">Room</span>
-                    <div className="optionCounter">
-                      <button
-                        disabled={options.room <= 1}
-                        className="optionCounterButton"
-                        onClick={() => handleOption("room", "d")}
-                      >
-                        -
-                      </button>
-                      <span className="optionCounterNumber">
-                        {options.room}
-                      </span>
-                      <button
-                        className="optionCounterButton"
-                        onClick={() => handleOption("room", "i")}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div> */}
               </div>
             )}
             <PersonAddAltIcon className="headerIcon" />

@@ -8,7 +8,13 @@ import axios from "axios";
 import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 
-import { Button, CardHeader, Collapse, IconButton } from "@mui/material";
+import {
+  Button,
+  CardHeader,
+  CardMedia,
+  Collapse,
+  IconButton,
+} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const ExpandMore = styled((props) => {
@@ -53,6 +59,11 @@ export default function Reservations() {
       {reservation.map((packageName) => {
         return (
           <Grid direction="row" item xs={12} key={packageName.id}>
+            <CardMedia
+              sx={{ height: 140 }}
+              image="http://192.168.1.66:8080/public/halls/hall--1692108995749-4.jpeg?w=164&h=164&fit=crop&auto=format"
+              title="green iguana"
+            />
             <Card onClick={() => handlePackageClick(packageName)}>
               <CardHeader
                 title={`${packageName.wedding_hall.name} - ${
@@ -61,7 +72,7 @@ export default function Reservations() {
                   ).value
                 }`}
               />
-              <CardActions disableSpacing>
+              {/* <CardActions disableSpacing>
                 <ExpandMore
                   expand={expanded}
                   onClick={handleExpandClick}
@@ -70,53 +81,53 @@ export default function Reservations() {
                 >
                   <ExpandMoreIcon />
                 </ExpandMore>
-              </CardActions>
-              <Collapse
+              </CardActions> */}
+              {/* <Collapse
                 in={expandedPackage === packageName}
                 timeout="auto"
                 unmountOnExit
-              >
-                <CardContent>
-                  <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                      <Typography variant="h5">Package Data</Typography>
+              > */}
+              <CardContent>
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <Typography variant="h5">Package Data</Typography>
 
-                      {packageName.wedding_hall.wedding_infos
-                        .find((info) => info.tag === "package")
-                        .package_infos.filter((info) => info.exist === 1)
-                        .map((info) => (
-                          <>
-                            <Typography>
-                              {`${info.tag} : ${info.value}`}
-                            </Typography>
-                          </>
-                        ))}
-                    </Grid>
-
-                    <Grid item xs={6}>
-                      <Typography variant="h5">Payment Data</Typography>
-                      <Typography>
-                        {`number_guest : ${packageName.number_guest}`}
-                      </Typography>
-                      <Typography>
-                        {`payment_status : ${packageName.payment_status}`}
-                      </Typography>
-                      <Typography>
-                        {`person_discount : ${packageName.person_discount}`}
-                      </Typography>
-                      <Typography>
-                        {`person_final : ${packageName.person_final}`}
-                      </Typography>
-                      <Typography>
-                        {`person_price : ${packageName.person_price}`}
-                      </Typography>
-                      <Typography>
-                        {`totalfinal : ${packageName.totalfinal}`}
-                      </Typography>
-                    </Grid>
+                    {packageName.wedding_hall.wedding_infos
+                      .find((info) => info.tag === "package")
+                      .package_infos.filter((info) => info.exist === 1)
+                      .map((info) => (
+                        <>
+                          <Typography>
+                            {`${info.tag} : ${info.value}`}
+                          </Typography>
+                        </>
+                      ))}
                   </Grid>
-                </CardContent>
-              </Collapse>
+
+                  <Grid item xs={6}>
+                    <Typography variant="h5">Payment Data</Typography>
+                    <Typography>
+                      {`number_guest : ${packageName.number_guest}`}
+                    </Typography>
+                    <Typography>
+                      {`payment_status : ${packageName.payment_status}`}
+                    </Typography>
+                    <Typography>
+                      {`person_discount : ${packageName.person_discount}`}
+                    </Typography>
+                    <Typography>
+                      {`person_final : ${packageName.person_final}`}
+                    </Typography>
+                    <Typography>
+                      {`person_price : ${packageName.person_price}`}
+                    </Typography>
+                    <Typography>
+                      {`totalfinal : ${packageName.totalfinal}`}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </CardContent>
+              {/* </Collapse> */}
             </Card>
             <Button
               onClick={() =>

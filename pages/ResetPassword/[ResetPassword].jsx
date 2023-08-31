@@ -19,7 +19,7 @@ import Navbar from "@/components/navbar/Navbar";
 const defaultTheme = createTheme({
   palette: {
     primary: {
-      main: "#03a700",
+      main: "#02a768",
     },
   },
 });

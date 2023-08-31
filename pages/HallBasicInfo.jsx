@@ -35,6 +35,7 @@ export default function AddressForm({ handleNext }) {
       .number()
       .required(t("validation.max_guest.required"))
       .typeError(t("validation.max_guest.typeError")),
+    feature: yup.string(),
   });
 
   const [governorateData, setGovernorateData] = React.useState([]);
@@ -266,7 +267,7 @@ export default function AddressForm({ handleNext }) {
                 helperText={errors.max_guest?.message}
               />
             </Grid>
-            {/* <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6}>
               <Autocomplete
                 options={[t("indoor"), t("outdoor"), t("villa"), t("session")]}
                 renderInput={(params) => (
@@ -280,22 +281,23 @@ export default function AddressForm({ handleNext }) {
                   setValue("feature", value);
                 }}
               />
-            </Grid> */}
-            <Grid item xs={12} sm={6}>
-              <Autocomplete
-                options={["indoor", "outdoor", "villa", "session"]}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Feature"
-                    // {...register("feature")}
-                  />
-                )}
-                onInputChange={(event, value) => {
-                  // setValue("feature", value);
-                }}
-              />
             </Grid>
+            {/* <Grid item xs={12} sm={6}>
+              {/* <Autocomplete
+                options={["indoor", "outdoor", "villa", "session"]}
+                renderInput={(params) => ( 
+              <TextField
+                // {...params}
+                label="Feature"
+                // {...register("feature")}
+              />
+              {/* //   )}
+              //   onInputChange={(event, value) => {
+              //     console.log(value, "valuevalue");
+              //     setValue("feature", value);
+              //   }}
+              // /> 
+            </Grid> */}
 
             <Button onClick={handleAddField}>Show Additional Field</Button>
             {additionalFields.map((fieldValue, index) => (

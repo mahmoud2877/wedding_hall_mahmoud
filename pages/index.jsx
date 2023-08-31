@@ -36,6 +36,8 @@ function Home() {
   const { favourite, setFavourite } = React.useContext(FavouriteContext);
 
   const { halls, setHalls, filteredHalls } = React.useContext(hallsContext);
+
+  console.log(filteredHalls, "filteredHall");
   const router = useRouter();
   // const [mainHalls, setMainHalls] = React.useState([]);
   const [idHalls, setIdHalls] = React.useState([]);

@@ -18,6 +18,7 @@ import { searchContext } from "@/pages/SearchContext";
 import { useRouter } from "next/router";
 import axios from "axios";
 import dayjs from "dayjs";
+import hallsContext from "@/pages/hall_filtered_hallsCotnext";
 
 // import SearchItem from "../../component/searchItem/SearchItem";
 // import useFetch from "../../hooks/useFetch";
@@ -29,8 +30,12 @@ const ListSearch = () => {
   const [cityData, setCityData] = useState([]);
   const [governmentId, setGovernmentId] = useState("");
   const { search, setSearch } = useContext(searchContext);
-  const [valueGov, setValueGov] = useState(search.governorate);
-  const [valueCit, setValueCit] = useState(search.city);
+  const [valueGov, setValueGov] = useState("");
+  const [valueCit, setValueCit] = useState("");
+  const [valueDate, setValueDate] = useState(Date.now());
+  const [name, setName] = useState(search.name || "search");
+  const { halls, setHalls, filteredHalls, setFilteredHalls } =
+    useContext(hallsContext);
 
   const [dates, setDates] = useState([
     {
@@ -39,9 +44,11 @@ const ListSearch = () => {
       key: "selection",
     },
   ]);
+  const [governorate, setgovernorate] = useState("");
+  const [city, setCity] = useState("");
   const [selectesDate, setSelectedDate] = useState(new Date());
   const [options, setOptions] = useState({
-    adult: 0,
+    adult: search.guest || 0,
     children: 0,
     room: 1,
   });
@@ -57,6 +64,28 @@ const ListSearch = () => {
         console.log(error);
       });
   }, []);
+  useEffect(() => {
+    if (search.name) {
+      setName(search.name);
+    }
+    if (search.governorate) {
+      setgovernorate(search.governorate);
+    }
+    if (search.city) {
+      setCity(search.city);
+    }
+    if (search.guest) {
+      setOptions({
+        adult: search.guest,
+        children: 0,
+        room: 1,
+      });
+    }
+    if (search.date) {
+      setValueDate(new Date(search.date).getTime());
+    }
+  }, [search]);
+
   const guestRef = useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -88,7 +117,7 @@ const ListSearch = () => {
     setOptions((prev) => {
       return {
         ...prev,
-        [name]: operation === "i" ? options[name] + 1 : options[name] - 1,
+        [name]: operation === "i" ? options[name] + 50 : options[name] - 50,
       };
     });
   };
@@ -101,6 +130,13 @@ const ListSearch = () => {
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
   const { page } = useContext(PageContext);
+  const getCurrentLanguage = () => {
+    if (typeof window !== "undefined") {
+      const storedLanguage = localStorage.getItem("language");
+      return storedLanguage || router.locale;
+    }
+  };
+  const [currentLanguage, setCurrentLanguage] = useState(getCurrentLanguage());
   console.log(search, "searchlllllllllllllollist");
   const { t } = useTranslation();
 
@@ -113,6 +149,32 @@ const ListSearch = () => {
   // };
   const router = useRouter();
 
+  // const handleLanguageChange = (code) => {
+  //   handleCloseLangMenu();
+
+  //   i18n
+  //     .changeLanguage(code)
+  //     .then(() => {
+  //       setCurrentLanguage(code);
+  //       const selectedLanguage = languages.find((lang) => lang.code === code);
+  //       setSelectedLanguageIcon(selectedLanguage.icon);
+  //       if (typeof window !== "undefined") {
+  //         localStorage.setItem("language", code);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedLanguage = localStorage.getItem("language");
+      // handleLanguageChange(storedLanguage);
+    }
+  }, [currentLanguage]);
+  console.log("vvvvvvvvalueee", valueDate);
+
   const onSubmit = (data) => {
     data.preventDefault();
     // setLoading(true);
@@ -124,6 +186,9 @@ const ListSearch = () => {
     const params = {
       page: page,
     };
+    const paramsContext = {
+      page: page,
+    };
 
     const selectedEl = governorateData.find((el) => {
       return el.id == governmentId;
@@ -131,24 +196,26 @@ const ListSearch = () => {
 
     console.log(selectedEl, "seeeelelelelele", data.target[0].value);
     if (selectedEl) {
-      // if (currentLanguage === "en") {
-      //   params.governorate = selectedEl.governorate_name_en;
-      // } else {
-      //   params.governorate = selectedEl.governorate_name_ar;
-      // }
-      params.governorate = selectedEl.id;
+      if (currentLanguage === "en") {
+        params.governorate = selectedEl.governorate_name_en;
+        paramsContext.governorate = selectedEl.governorate_name_en;
+      } else {
+        params.governorate = selectedEl.governorate_name_ar;
+        paramsContext.governorate = selectedEl.governorate_name_ar;
+      }
     }
     const selectedCity = cityData.find((el) => {
       return el.id == cityId;
     });
     console.log(cityData, selectedCity, "citycity");
     if (selectedCity) {
-      // if (currentLanguage === "en") {
-      //   params.city = selectedCity.city_name_en;
-      // } else {
-      //   params.city = selectedCity.city_name_ar;
-      // }
-      params.city = selectedCity.id;
+      if (currentLanguage === "en") {
+        params.city = selectedCity.city_name_en;
+        paramsContext.city = selectedCity.city_name_en;
+      } else {
+        params.city = selectedCity.city_name_ar;
+        paramsContext.city = selectedCity.city_name_ar;
+      }
     }
 
     // for (const key of Object.keys(data)) {
@@ -164,7 +231,7 @@ const ListSearch = () => {
       new Date(dates[0].endDate) !== new Date()
     );
 
-    if (new Date(dates[0].endDate).getDate() !== new Date().getDate()) {
+    if (new Date(valueDate).getDate() !== new Date().getDate()) {
       // const selectedDate = new Date(dates.startDate);
       // const selectedEnd = new Date(dates.endDate);
 
@@ -175,40 +242,76 @@ const ListSearch = () => {
       //     day: "numeric",
       //   })
       //   .replace(/\//g, "-");
-      console.log(search, "searchsearch");
-      console.log(dates[0].startDate, "sssssssssssssst");
+      console.log(valueDate, "sssssssssssssst");
       function formatDate(date) {
-        const day = date.getDate();
-        const month = date.getMonth() + 1; // Months are zero-indexed
-        const year = date.getFullYear();
+        const day = new Date(date).getDate();
+        const month = new Date(date).getMonth() + 1; // Months are zero-indexed
+        const year = new Date(date).getFullYear();
         return `${year}-${month}-${day}`;
       }
-      const startDateEff = formatDate(dates[0].startDate);
-      const endDateEff = formatDate(dates[0].endDate);
-      params.startEff = startDateEff;
-      params.endEff = endDateEff;
-      console.log(startDateEff, endDateEff);
+      const startDateEff = formatDate(valueDate);
+      // const endDateEff = formatDate(dates[0].endDate);
+      params.effectDate = startDateEff;
+      paramsContext.date = valueDate;
+      // params.endEff = endDateEff;
+      // console.log(startDateEff, endDateEff);
       console.log(params, "params");
     }
 
     if (options.adult) {
       params.guest = options.adult;
+      paramsContext.guest = options.adult;
     }
 
-    if (name) {
+    if (name && name !== "search") {
       params.name = name;
+      paramsContext.name = name;
     }
-    // if (featureQuery) {
-    //   params.feature = featureQuery;
-    // }
-    // if (governmentId) {
-    //   params.governorate = governmentId;
-    // }
-    // if (cityId) {
-    //   params.city = cityId;
-    // }
+    console.log(params, "paramsparams");
+
+    if (Object.keys(params).length >= 0) {
+      console.log(params, "paramsparams", paramsContext);
+      setSearch(paramsContext);
+      axios
+        .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+          withCredentials: true,
+          params,
+        })
+        .then((response) => {
+          console.log(response, "responseresponse");
+          setFilteredHalls(
+            response.data.data.data.filter(
+              (hall) => hall.wedding_infos.length > 0
+            )
+          );
+          setHalls([]);
+          router.push("/");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      // .finally(() => {
+      //   // setLoading(false);
+      // });
+    } else {
+      axios
+        .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+          withCredentials: true,
+        })
+        .then((response) =>
+          setHalls(
+            response.data.data.data.filter(
+              (hall) => hall.wedding_infos.length > 0
+            )
+          )
+        );
+      setFilteredHalls([]);
+
+      setLoading(false);
+      router.push("/");
+    }
     console.log(search, "searchsearch");
-    setSearch(params);
+    // setSearch(params);
 
     router.push("/");
     console.log(params, "params");
@@ -216,7 +319,7 @@ const ListSearch = () => {
   const onGovernorateChange = async (event) => {
     console.log(...event.target.value);
     setGovernmentId(event.target.value);
-    setValueGov(event.target.value);
+    //setValueGov(event.target.value);
     // const selectedGovernorateId = event.target.value.id;
     try {
       const response = await axios.get(
@@ -288,7 +391,7 @@ const ListSearch = () => {
           <select
             className=" headerSearchText headerSearchInputSelect"
             placeholder="choose government?"
-            value={valueGov || search.governorate}
+            // value={valueGov }
             onChange={(e) => onGovernorateChange(e)}
           >
             <option
@@ -298,7 +401,7 @@ const ListSearch = () => {
               hidden
               className="headerSearchText"
             >
-              {t("navbar.governorate")}
+              {governorate || t("navbar.governorate")}
             </option>
             {governorateData.map((el) => (
               <option value={el.id} className="headerSearchText">
@@ -323,7 +426,7 @@ const ListSearch = () => {
               hidden
               className="headerSearchText"
             >
-              {t("navbar.city")}
+              {city || t("navbar.city")}
             </option>
             {cityData.map((el) => (
               <option value={el.id} className="headerSearchText">
@@ -339,11 +442,22 @@ const ListSearch = () => {
           {" "}
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              defaultValue={dayjs("2022/04/17")}
+              disableMobileIcon={false}
+              onChange={(date) => {
+                setValueDate(date);
+              }}
+              value={dayjs(valueDate)}
               sx={{
                 // outline: "none", // Hide the outline
-
+                display: "flex",
+                justifyContent: "space-between",
+                minWidth: "100%",
+                pr: "0",
+                "& .css-wtvjf1-MuiInputBase-root-MuiOutlinedInput-root": {
+                  pr: "0",
+                },
                 "& .MuiInputBase-root": {
+                  justifyContent: "space-between",
                   // outline: "none", // Hide outline for the input field
                 },
                 "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
@@ -359,6 +473,14 @@ const ListSearch = () => {
                 "& .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input": {
                   width: "100px",
                   fontSize: "15px",
+                  pl: "0",
+                },
+                "& .css-1laqsz7-MuiInputAdornment-root": {
+                  ml: "0",
+                  opacity: "40%",
+                },
+                "& .css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root": {
+                  p: "0",
                 },
               }}
             />
@@ -372,7 +494,7 @@ const ListSearch = () => {
             className="headerSearchText"
           >{`${options.adult} ${t("navbar.guestNumber")} `}</span>
           {openOptions && (
-            <div className="options">
+            <div className="options2">
               <div className="optionItem">
                 <span className="optionText">{t("navbar.guestNumber")}</span>
                 <div className="optionCounter">
@@ -401,48 +523,6 @@ const ListSearch = () => {
                   </button>
                 </div>
               </div>
-              {/* <div className="optionItem">
-                    <span className="optionText">Children</span>
-                    <div className="optionCounter">
-                      <button
-                        disabled={options.children <= 0}
-                        className="optionCounterButton"
-                        onClick={() => handleOption("children", "d")}
-                      >
-                        -
-                      </button>
-                      <span className="optionCounterNumber">
-                        {options.children}
-                      </span>
-                      <button
-                        className="optionCounterButton"
-                        onClick={() => handleOption("children", "i")}
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                  <div className="optionItem">
-                    <span className="optionText">Room</span>
-                    <div className="optionCounter">
-                      <button
-                        disabled={options.room <= 1}
-                        className="optionCounterButton"
-                        onClick={() => handleOption("room", "d")}
-                      >
-                        -
-                      </button>
-                      <span className="optionCounterNumber">
-                        {options.room}
-                      </span>
-                      <button
-                        className="optionCounterButton"
-                        onClick={() => handleOption("room", "i")}
-                      >
-                        +
-                      </button>
-                      </div>
-                    </div> */}
             </div>
           )}
           <PersonAddAltIcon className="headerIcon" />

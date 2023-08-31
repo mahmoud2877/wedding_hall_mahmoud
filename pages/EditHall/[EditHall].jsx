@@ -100,7 +100,7 @@ const EditHall = () => {
   return (
     <>
       {location === "" ? null : (
-        <Grid container spacing={2} sx={{ mt: 2 }}>
+        <Grid container width={"100%"} spacing={2} sx={{ mt: 2 }}>
           <Grid item xs={12}>
             <Card>
               <CardMedia
@@ -114,7 +114,7 @@ const EditHall = () => {
         </Grid>
       )}
 
-      <Grid container spacing={2} sx={{ mt: 2 }}>
+      <Grid container width={"81%"} spacing={2} sx={{ mt: 2 }}>
         <Grid item xs={10}>
           <ImageList
             sx={{ width: "90%", height: "90%" }}
@@ -187,7 +187,7 @@ const EditHall = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={2} sx={{ mt: 2 }}>
+      <Grid container width={"81%"} spacing={2} sx={{ mt: 2 }}>
         <Grid item xs={10}>
           {hallDesc === "" ? (
             <>
@@ -219,12 +219,12 @@ const EditHall = () => {
           <DescriptionModal setHallDesc={setHallDesc} />
         </Grid>
       </Grid>
-      <Grid container spacing={2} sx={{ mt: 2 }}>
+      <Grid container width={"81%"} spacing={2} sx={{ mt: 2 }}>
         <Grid item xs={12}>
           <ShowHallDate hall_id={id} />
         </Grid>
       </Grid>
-      <Grid container spacing={2} sx={{ mt: 2 }}>
+      <Grid container width={"81%"} spacing={2} sx={{ mt: 2 }}>
         {hallPackage.map((packageName) => {
           return (
             <Grid direction="column" item xs={10} key={packageName.id}>

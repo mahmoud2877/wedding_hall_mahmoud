@@ -32,6 +32,7 @@ import { t } from "i18next";
 import { authContext } from "../AuthContext";
 import ListSearch from "@/components/component/List";
 import { searchContext } from "../SearchContext";
+import MediaCard from "@/components/card/MediaCard";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -283,42 +284,51 @@ const HallPreview = () => {
       <Grid container direction="row" spacing={2} sx={{ mt: 2 }}>
         {hallPackage.map((packageName) => {
           return (
-            <Grid direction="row" item xs={12} key={packageName.id}>
-              <Card onClick={() => handlePackageClick(packageName)}>
-                <CardHeader title={packageName.value} />
-                <CardActions disableSpacing>
-                  <ExpandMore
-                    expand={expanded}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label={t("hall_preview.expand")}
+            <>
+              <MediaCard
+                packageName={packageName}
+                key={packageName.id}
+                profile={profile}
+                id_hall={id}
+                id_package={packageName.id}
+              />
+              {/* <Grid direction="row" item xs={12} key={packageName.id}>
+                <Card onClick={() => handlePackageClick(packageName)}>
+                  <CardHeader title={packageName.value} />
+                  <CardActions disableSpacing>
+                    <ExpandMore
+                      expand={expanded}
+                      onClick={handleExpandClick}
+                      aria-expanded={expanded}
+                      aria-label={t("hall_preview.expand")}
+                    >
+                      <ExpandMoreIcon />
+                    </ExpandMore>
+                  </CardActions>
+                  <Collapse
+                    in={expandedPackage === packageName}
+                    timeout="auto"
+                    unmountOnExit
                   >
-                    <ExpandMoreIcon />
-                  </ExpandMore>
-                </CardActions>
-                <Collapse
-                  in={expandedPackage === packageName}
-                  timeout="auto"
-                  unmountOnExit
-                >
-                  <CardContent>
-                    {packageName.package_infos
-                      .filter((info) => info.exist === 1)
-                      .map((info) => {
-                        return (
-                          <Typography key={info.id}>
-                            <strong>{info.tag}: </strong>
-                            {info.value}
-                          </Typography>
-                        );
-                      })}
-                  </CardContent>
-                </Collapse>
-              </Card>
-              {profile && (
-                <ReservationModal id_hall={id} id_package={packageName.id} />
-              )}
-            </Grid>
+                    <CardContent>
+                      {packageName.package_infos
+                        .filter((info) => info.exist === 1)
+                        .map((info) => {
+                          return (
+                            <Typography key={info.id}>
+                              <strong>{info.tag}: </strong>
+                              {info.value}
+                            </Typography>
+                          );
+                        })}
+                    </CardContent>
+                  </Collapse>
+                </Card>
+                {profile && (
+                  <ReservationModal id_hall={id} id_package={packageName.id} />
+                )}
+              </Grid> */}
+            </>
           );
         })}
       </Grid>

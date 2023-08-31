@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 const defaultTheme = createTheme({
   palette: {
     primary: {
-      main: "#03a700",
+      main: "#02a768",
     },
   },
 });

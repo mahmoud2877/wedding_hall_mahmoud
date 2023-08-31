@@ -69,6 +69,8 @@ const Navbar = ({
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
+  console.log(anchorElUser, "anchorElUser");
   return (
     <div className="navbar">
       <div className="navContainer">
@@ -104,40 +106,6 @@ const Navbar = ({
           </div>
         </div>
         <div className="navItems">
-          {/* <Tooltip>
-            <IconButton
-              color="inherit"
-              aria-controls="menu-language"
-              aria-haspopup="true"
-              onClick={handleOpenLangMenu}
-            >
-              <Avatar
-                alt={currentLanguage}
-                src={selectedLanguageIcon || "/icons/language.png"}
-              />
-            </IconButton>
-          </Tooltip> */}
-          {/* <Menu
-            id="menu-language"
-            anchorEl={anchorElLang}
-            open={Boolean(anchorElLang)}
-            onClose={handleCloseLangMenu}
-          >
-            {languages.map((language) => (
-              <MenuItem
-                key={language.code}
-                onClick={() => handleLanguageChange(language.code)}
-                disabled={language.code === currentLanguage}
-              >
-                <Avatar
-                  alt={language.label}
-                  src={language.icon}
-                  sx={{ mr: 1 }}
-                />
-                {language.label}
-              </MenuItem>
-            ))}
-          </Menu> */}
           {isLoogedIn ? (
             <>
               <Tooltip>
@@ -147,18 +115,19 @@ const Navbar = ({
                   aria-haspopup="true"
                   onClick={handleOpenLangMenu}
                   sx={{
-                    width: "20%",
+                    width: "50px",
+                    height: "50px",
                     maxWidth: "50px",
                     "& .css-1pqm26d-MuiAvatar-img ": {
-                      width: "100%",
-                      height: "auto",
+                      width: "30px",
+                      height: "30px",
                     },
                   }}
                 >
                   <Avatar
-                    sx={{ width: "100%", maxWidth: "100%", height: "none" }}
+                    sx={{ width: "30px", maxWidth: "100%", height: "30px" }}
                     alt={currentLanguage}
-                    src={selectedLanguageIcon || "/icons/language.png"}
+                    src={selectedLanguageIcon}
                   />
                 </IconButton>
               </Tooltip>
@@ -219,6 +188,13 @@ const Navbar = ({
               <Tooltip title={t("navbar.openSettings")}>
                 <IconButton onClick={handleOpenUserMenu}>
                   <Avatar
+                    sx={{
+                      ".css-1pqm26d-MuiAvatar-img": {
+                        width: "70%",
+                        height: "70%",
+                      },
+                    }}
+                    // sx={{ width: "30px", maxWidth: "100%", height: "30px" }}
                     alt={profile?.name}
                     src={profile?.photo ? `${userImage}${profile.photo}` : null}
                   />
@@ -256,16 +232,19 @@ const Navbar = ({
                   aria-haspopup="true"
                   onClick={handleOpenLangMenu}
                   sx={{
-                    width: "20%",
+                    // width: "20%",
+
+                    width: "50px",
+                    height: "50px",
                     maxWidth: "50px",
                     "& .css-1pqm26d-MuiAvatar-img ": {
-                      width: "100%",
-                      height: "auto",
+                      width: "30px",
+                      height: "30px",
                     },
                   }}
                 >
                   <Avatar
-                    sx={{ width: "100%", maxWidth: "100%", height: "none" }}
+                    sx={{ width: "30px", maxWidth: "100%", height: "30px" }}
                     alt={currentLanguage}
                     src={selectedLanguageIcon}
                   />
@@ -292,7 +271,6 @@ const Navbar = ({
                   </MenuItem>
                 ))}
               </Menu>
-
               <Button
                 onClick={() => router.push("/SignIn")}
                 color="inherit"
