@@ -176,5 +176,12 @@
   "drawer.SignInNow": "signIn for offers and discounts",
   "navbar.searchbyname": "Name Search",
   "list.Search": "Search",
-  "list.government": "Government"
+  "list.government": "Government",
+  "Cardpackage.totalPrice": "Total Price",
+  "Cardpackage.personPrice": "Person Price",
+  "Cardpackage.Book": "Book Now",
+  "number": "Number of guest from",
+  "to": "to",
+  "photosession": "photosession",
+  "conference": "conference"
 }

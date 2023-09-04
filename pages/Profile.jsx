@@ -15,7 +15,13 @@ import * as yup from "yup";
 import { authContext } from "./AuthContext";
 import { useTranslation } from "react-i18next";
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      main: "#02a768",
+    },
+  },
+});
 
 export default function Profile() {
   const { t } = useTranslation();

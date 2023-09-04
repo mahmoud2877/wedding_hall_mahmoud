@@ -16,18 +16,18 @@ export default function MediaCard({
   id_package,
 }) {
   console.log(packageName, "packageName", id_hall, id_package);
-  const muiTheme = createMuiTheme({
-    overrides: {
-      MuiSlider: {
-        disabled: {
-          color: "green",
-        },
-        enabled: {
-          color: "blue",
-        },
-      },
-    },
-  });
+  let minGuest;
+  let maxGuest;
+  packageName.package_infos
+    .filter((el) => el.tag.includes("minGuest"))
+    .map((el) => {
+      minGuest = el.value;
+    });
+  packageName.package_infos
+    .filter((el) => el.tag.includes("maxGuest"))
+    .map((el) => {
+      maxGuest = el.value;
+    });
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -40,38 +40,41 @@ export default function MediaCard({
         <Typography gutterBottom variant="h4" component="div">
           {packageName.value}
         </Typography>
+        <div className="packageBox">
+          <Typography variant="body2" fontWeight={700} color="text.primary">
+            {`Number of guest from ${minGuest} to ${maxGuest}`}
+          </Typography>{" "}
+        </div>
+        <div className="packageBox">
+          <Typography variant="body2" fontWeight={700} color="text.primary">
+            {`Main Features`}
+          </Typography>{" "}
+        </div>
 
-        {/* {packageName.package_infos
-          .filter((el) => el.tag.includes("minGuest"))
-          .map((info) => ( */}
-        <Slider
-          track={false}
-          aria-labelledby="track-false-range-slider"
-          // getAriaValueText={valuetext}
-          defaultValue={[20, 37]}
-          disabled
-          valueLabelDisplay="on"
-          // marks={marks}
-          color="green"
-          sx={{
-            color: "blue",
-          }}
-        />
-
-        {/* ))} */}
         {packageName.package_infos
           .filter((el) => !el.tag.startsWith("name"))
+          .filter((el) => !el.tag.includes("discount"))
           .filter((el) => !el.tag.includes("Guest"))
-          .map((info) => (
-            <div className="packageBox">
-              <Typography variant="body2" fontWeight={700} color="text.primary">
-                {`${info.tag} :`}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {`${info.value}`}
-              </Typography>
-            </div>
-          ))}
+          .filter((el) => !el.tag.includes("price"))
+          .map((info) =>
+            // if(info.includes("Gues"))
+            {
+              return (
+                <div className="packageBox">
+                  <Typography
+                    variant="body2"
+                    fontWeight={700}
+                    color="text.primary"
+                  >
+                    {`${info.tag} :`}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {`${info.value}`}
+                  </Typography>
+                </div>
+              );
+            }
+          )}
       </CardContent>
       <CardActions>
         <Button size="small">

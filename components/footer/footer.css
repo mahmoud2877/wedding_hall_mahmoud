@@ -9,6 +9,7 @@
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 50px;
+  margin-right: 10px;
 }
 
 .fList {
@@ -20,4 +21,18 @@
   margin-bottom: 10px;
   color: #036942;
   cursor: pointer;
+}
+
+@media (max-width: 270px) {
+  /* .headerBtn {
+    /* Your styles for screens less than 640px wide */
+  /* For example: 
+    margin-left: 60px;
+  } */
+  .fList {
+    font-size: xx-small;
+  }
+  /* .nameHeader {
+    font-size: x-small;
+  } */
 }

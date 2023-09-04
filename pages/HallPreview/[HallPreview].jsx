@@ -33,6 +33,7 @@ import { authContext } from "../AuthContext";
 import ListSearch from "@/components/component/List";
 import { searchContext } from "../SearchContext";
 import MediaCard from "@/components/card/MediaCard";
+import BasicCard from "@/components/cardPackage/CardPackage";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -170,7 +171,11 @@ const HallPreview = () => {
       <Grid container spacing={2} sx={{ mt: 2 }}>
         <Grid xs={12} spacing={1} sm={3}>
           <ListSearch search={search} />
-          <Card>
+          <Card
+            sx={{
+              marginLeft: "10px",
+            }}
+          >
             <CardMedia
               component="iframe"
               src={location}
@@ -281,57 +286,30 @@ const HallPreview = () => {
           />
         </Grid>
       </Grid>
-      <Grid container direction="row" spacing={2} sx={{ mt: 2 }}>
+      <Grid
+        container
+        direction="row"
+        display={"flex"}
+        justifyContent={"center"}
+        spacing={2}
+        sx={{ mt: 2 }}
+      >
         {hallPackage.map((packageName) => {
           return (
             <>
-              <MediaCard
+              <BasicCard
                 packageName={packageName}
                 key={packageName.id}
                 profile={profile}
                 id_hall={id}
                 id_package={packageName.id}
               />
-              {/* <Grid direction="row" item xs={12} key={packageName.id}>
-                <Card onClick={() => handlePackageClick(packageName)}>
-                  <CardHeader title={packageName.value} />
-                  <CardActions disableSpacing>
-                    <ExpandMore
-                      expand={expanded}
-                      onClick={handleExpandClick}
-                      aria-expanded={expanded}
-                      aria-label={t("hall_preview.expand")}
-                    >
-                      <ExpandMoreIcon />
-                    </ExpandMore>
-                  </CardActions>
-                  <Collapse
-                    in={expandedPackage === packageName}
-                    timeout="auto"
-                    unmountOnExit
-                  >
-                    <CardContent>
-                      {packageName.package_infos
-                        .filter((info) => info.exist === 1)
-                        .map((info) => {
-                          return (
-                            <Typography key={info.id}>
-                              <strong>{info.tag}: </strong>
-                              {info.value}
-                            </Typography>
-                          );
-                        })}
-                    </CardContent>
-                  </Collapse>
-                </Card>
-                {profile && (
-                  <ReservationModal id_hall={id} id_package={packageName.id} />
-                )}
-              </Grid> */}
             </>
           );
         })}
       </Grid>
+      {/* <Grid container direction="row" spacing={2} sx={{ mt: 2 }}> */}
+      {/* </Grid> */}
       {profile ? (
         <Grid container spacing={2} sx={{ mt: 2 }}>
           <Grid item xs={6}>

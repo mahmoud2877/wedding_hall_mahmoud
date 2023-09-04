@@ -1,0 +1,83 @@
+.card {
+  max-width: 320px;
+  margin: 0 10px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  width: 400px;
+}
+
+.header2 {
+  position: relative;
+  padding: 16px;
+  background-color: #02a768;
+  color: #fff;
+}
+
+.title {
+  font-size: 24px;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.subtitle {
+  font-size: 14px;
+  margin: 8px 0;
+  font-family: sans-serif;
+}
+
+.bookmark {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.image img {
+  width: 100%;
+  height: auto;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  margin-top: 10px;
+}
+
+.price {
+  flex: 1;
+}
+
+.price p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.price h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 4px 0;
+}
+
+.explore {
+  background-color: #02a768;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.packageBoxPrice {
+  display: flex;
+  height: 20px;
+  font-family: sans-serif;
+  margin-left: 20px;
+}

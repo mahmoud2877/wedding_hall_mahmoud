@@ -177,5 +177,12 @@
   "drawer.SignInNow": "سجل الدخول للحصول علي الخصومات",
   "navbar.searchbyname": "ابحث عن قاعة",
   "list.Search": "البحث",
-  "list.government": "المحافظة"
+  "list.government": "المحافظة",
+  "Cardpackage.totalPrice": "السعر الاجمالي",
+  "Cardpackage.personPrice": "سعر الفرد",
+  "Cardpackage.Book": "احجز الآن",
+  "number": "عدد الضيوف من",
+  "to": "الي",
+  "photosession": "جلسة تصوير",
+  "conference": "مؤتمرات"
 }

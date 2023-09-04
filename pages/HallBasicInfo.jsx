@@ -122,7 +122,14 @@ export default function AddressForm({ handleNext }) {
 
   const onSubmit = (data) => {
     setLoading(true);
+    console.log(data, "dataBefore");
 
+    if (additionalFields.length > 0) {
+      additionalFields.map((el, index) => {
+        data[`feature${index}`] = el;
+      });
+    }
+    console.log(data, "dataBefore");
     axios
       .post("http://192.168.1.66:8080/api/v1/bh/weddinghall", data, {
         withCredentials: true,
@@ -149,6 +156,7 @@ export default function AddressForm({ handleNext }) {
     updatedFields[index] = value;
     setAdditionalFields(updatedFields);
   };
+  console.log(additionalFields, "additionalField");
 
   return (
     <React.Fragment>
@@ -269,7 +277,12 @@ export default function AddressForm({ handleNext }) {
             </Grid>
             <Grid item xs={12} sm={6}>
               <Autocomplete
-                options={[t("indoor"), t("outdoor"), t("villa"), t("session")]}
+                options={[
+                  "wedding",
+                  "photosession",
+                  "conference",
+                  "graduation",
+                ]}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -278,6 +291,7 @@ export default function AddressForm({ handleNext }) {
                   />
                 )}
                 onInputChange={(event, value) => {
+                  console.log(value, "featureValue");
                   setValue("feature", value);
                 }}
               />
@@ -299,12 +313,16 @@ export default function AddressForm({ handleNext }) {
               // /> 
             </Grid> */}
 
-            <Button onClick={handleAddField}>Show Additional Field</Button>
             {additionalFields.map((fieldValue, index) => (
               <Grid item xs={12} sm={6}>
                 <Autocomplete
                   key={index}
-                  options={["indoor", "outdoor", "villa", "session"]}
+                  options={[
+                    "wedding",
+                    "photosession",
+                    "conference",
+                    "graduation",
+                  ]}
                   value={fieldValue}
                   onChange={(_, value) =>
                     handleAdditionalFieldChange(index, value)
@@ -320,6 +338,9 @@ export default function AddressForm({ handleNext }) {
               </Grid>
             ))}
             <Grid item xs={12} sx={{ textAlign: "center" }}>
+              <Button variant="text" onClick={handleAddField}>
+                Show Additional Field
+              </Button>
               <Button variant="contained" type="submit" disabled={loading}>
                 {loading ? (
                   <CircularProgress size={24} color="inherit" />

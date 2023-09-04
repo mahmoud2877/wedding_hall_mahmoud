@@ -45,7 +45,7 @@ export default function Favourite() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <main>
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>

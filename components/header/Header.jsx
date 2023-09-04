@@ -44,6 +44,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
+import ImageSlider from "../slider2/slider2";
 
 // import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 // import { useNavigate } from "react-router-dom";
@@ -471,6 +472,7 @@ const Header = ({
 
   return (
     <div className="header">
+      <ImageSlider />
       <div className="background"></div>
       <div className="headerContainer">
         <div className="headerList">

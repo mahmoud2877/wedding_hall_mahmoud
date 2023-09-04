@@ -169,7 +169,7 @@ export default function Dashboard(props) {
     localStorage.setItem("language", "ar");
   }
   const { profile, setProfile } = React.useContext(authContext);
-  const { search, setSearch } = React.useContext(authContext);
+  // const { search, setSearch } = React.useContext(authContext);
   const handleLanguageChange = (code) => {
     handleCloseLangMenu();
 
@@ -368,7 +368,8 @@ export default function Dashboard(props) {
         router.pathname.includes("SignUp") ||
         router.pathname.includes("ForgetPassword") ||
         router.pathname.includes("CreateHallSteps") ||
-        router.pathname.includes("UserHalls") ? (
+        router.pathname.includes("UserHalls") ||
+        router.pathname.includes("Profile") ? (
           ""
         ) : (
           <Header

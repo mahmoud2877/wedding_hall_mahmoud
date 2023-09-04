@@ -1,0 +1,35 @@
+.slider-container2 {
+  display: flex;
+  overflow: hidden;
+  width: 100%; /* Set the width and height of your slider */
+  height: 100%;
+  margin: 0 auto;
+  position: absolute;
+}
+
+.slide3 {
+  flex: 0 0 100%;
+  transition: transform 0.3s ease-in-out;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/*
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute;
+} */
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}

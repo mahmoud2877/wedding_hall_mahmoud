@@ -33,7 +33,7 @@ const ListSearch = () => {
   const [valueGov, setValueGov] = useState("");
   const [valueCit, setValueCit] = useState("");
   const [valueDate, setValueDate] = useState(Date.now());
-  const [name, setName] = useState(search.name || "search");
+  const [name, setName] = useState(search.name || "");
   const { halls, setHalls, filteredHalls, setFilteredHalls } =
     useContext(hallsContext);
 
