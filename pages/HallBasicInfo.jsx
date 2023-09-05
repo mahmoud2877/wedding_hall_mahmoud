@@ -13,7 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 
-export default function AddressForm({ handleNext }) {
+export default function AddressForm({ handleNext, activeButtonName }) {
   const methods = useForm();
   const { t } = useTranslation();
   const validationSchema = yup.object().shape({
@@ -27,14 +27,19 @@ export default function AddressForm({ handleNext }) {
       .string()
       .matches(/^01[0-9]{9}$/, t("validation.phone.matches"))
       .required(t("validation.phone.required")),
-    min_guest: yup
-      .number()
-      .required(t("validation.min_guest.required"))
-      .typeError(t("validation.min_guest.typeError")),
-    max_guest: yup
-      .number()
-      .required(t("validation.max_guest.required"))
-      .typeError(t("validation.max_guest.typeError")),
+    min_guest:
+      activeButtonName === "WeddingHall" &&
+      yup
+        .number()
+        .required(t("validation.min_guest.required"))
+        .typeError(t("validation.min_guest.typeError")),
+    max_guest:
+      activeButtonName === "WeddingHall" &&
+      yup
+        .number()
+        .required(t("validation.max_guest.required"))
+        .typeError(t("validation.max_guest.typeError")),
+
     feature: yup.string(),
   });
 
@@ -58,11 +63,15 @@ export default function AddressForm({ handleNext }) {
       city: "",
       adress: "",
       phone: "",
-      min_guest: "",
-      max_guest: "",
+      // min_guest: "",
+      // max_guest: "",
       feature: "",
     },
   });
+  if (activeButtonName === "WeddingHall") {
+    setValue("min_guest", "");
+    setValue("max_guest", "");
+  }
 
   React.useEffect(() => {
     axios
@@ -129,6 +138,7 @@ export default function AddressForm({ handleNext }) {
         data[`feature${index}`] = el;
       });
     }
+    data.hall_type = activeButtonName;
     console.log(data, "dataBefore");
     axios
       .post("http://192.168.1.66:8080/api/v1/bh/weddinghall", data, {
@@ -248,33 +258,39 @@ export default function AddressForm({ handleNext }) {
                 helperText={errors.phone?.message}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                {...register("min_guest")}
-                required
-                id="min_guest"
-                name="min_guest"
-                label={t("hallInfo.minGuest")}
-                fullWidth
-                autoComplete="min_guest"
-                variant="standard"
-                error={!!errors.min_guest}
-                helperText={errors.min_guest?.message}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                {...register("max_guest")}
-                id="max_guest"
-                name="max_guest"
-                label={t("hallInfo.maxGuest")}
-                fullWidth
-                autoComplete="max_guest"
-                variant="standard"
-                error={!!errors.max_guest}
-                helperText={errors.max_guest?.message}
-              />
-            </Grid>
+            {activeButtonName === "WeddingHall" && (
+              <>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    {...register("min_guest")}
+                    required={activeButtonName === "WeddingHall"}
+                    id="min_guest"
+                    name="min_guest"
+                    label={t("hallInfo.minGuest")}
+                    fullWidth
+                    autoComplete="min_guest"
+                    variant="standard"
+                    error={!!errors.min_guest}
+                    helperText={errors.min_guest?.message}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    {...register("max_guest")}
+                    required={activeButtonName === "WeddingHall"}
+                    id="max_guest"
+                    name="max_guest"
+                    label={t("hallInfo.maxGuest")}
+                    fullWidth
+                    autoComplete="max_guest"
+                    variant="standard"
+                    error={!!errors.max_guest}
+                    helperText={errors.max_guest?.message}
+                  />
+                </Grid>
+              </>
+            )}
+
             <Grid item xs={12} sm={6}>
               <Autocomplete
                 options={[
