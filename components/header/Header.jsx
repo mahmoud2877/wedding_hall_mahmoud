@@ -709,6 +709,17 @@ const Header = ({
                   },
                   disableMobileIcon: false,
                 }}
+                renderInput={(props) => (
+                  <TextField
+                    {...props}
+                    variant="outlined"
+                    InputProps={{
+                      endAdornment: (
+                        <CalendarTodayIcon className="calendar-icon" />
+                      ),
+                    }}
+                  />
+                )}
               />
             </LocalizationProvider>
           </div>

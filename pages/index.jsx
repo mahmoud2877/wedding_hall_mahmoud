@@ -23,6 +23,9 @@ import FavouriteContext from "./FavouriteContext";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import { authContext } from "./AuthContext";
+import Featured from "@/components/feature/InfiniteCardSlider";
+import ImageSlider from "@/components/feature/InfiniteCardSlider";
+import InfiniteCardSlider from "@/components/feature/InfiniteCardSlider";
 // import Slide from "../components/slider/Slider";
 
 const defaultTheme = createTheme();
@@ -135,6 +138,9 @@ function Home() {
     <ThemeProvider theme={defaultTheme}>
       <main>
         <Container sx={{ py: 8 }} maxWidth="md">
+          <h2> Main Features </h2>
+          <InfiniteCardSlider />
+          <h2> Halls </h2>
           <Grid container spacing={4}>
             {filteredHalls.length === 0 && halls.length === 0 && (
               <p>{t("home.noDataMessage")}</p>
