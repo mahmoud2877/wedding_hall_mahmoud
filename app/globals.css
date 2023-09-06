@@ -12,4 +12,26 @@
 }
 body {
   margin: 0px;
+  background: #02a768;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent; /* Make the background transparent or set your desired background */
+  border: 1px solid #ccc; /* Add a border to the select element */
+  padding: 5px; /* Add padding to the select element */
+  border-radius: 5px; /* Apply border-radius for rounded corners */
+  width: 200px; /* Set the desired width */
+}
+
+/* Style the dropdown arrow (optional) */
+select::after {
+  content: "\25BC"; /* Unicode character for a downward arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust the position of the arrow */
+  transform: translateY(-50%);
+  pointer-events: none; /* Ensure the arrow doesn't interfere with clicking the select */
 }

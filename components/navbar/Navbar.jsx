@@ -45,6 +45,23 @@ const Navbar = ({
   const { profile, setProfile } = React.useContext(authContext);
   console.log(profile, "isLoggedInisLoggedIn");
   const { t } = useTranslation();
+
+  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  // React.useEffect(() => {
+  //   // Function to update the window width when it changes
+  //   const handleResize = () => {
+  //     setWindowWidth(window.innerWidth);
+  //   };
+
+  //   // Add a window resize event listener
+  //   window.addEventListener("resize", handleResize);
+
+  //   // Clean up the event listener when the component unmounts
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
   // const { user } = useContext(AuthContext);
   const userImage = "http://192.168.1.66:8080/public/img/users/";
 
@@ -131,7 +148,7 @@ const Navbar = ({
                   />
                 </IconButton>
               </Tooltip>
-              <Button
+              {/* <Button
                 onClick={() => router.push("/CreateHallSteps")}
                 color="inherit"
                 sx={{
@@ -144,18 +161,18 @@ const Navbar = ({
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                   },
-                  "@media (max-width: 600px)": {
-                    fontSize: "0.4rem",
-                    // padding: "10px 20px",
-                    minWidth: "auto",
-                    // width: "auto",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  },
+                  // "@media (max-width: 600px)": {
+                  //   fontSize: "0.4rem",
+                  //   // padding: "10px 20px",
+                  //   minWidth: "auto",
+                  //   // width: "auto",
+                  //   overflow: "hidden",
+                  //   textOverflow: "ellipsis",
+                  // },
                 }}
               >
                 {t("drawer.becomePartner")}
-              </Button>
+              </Button> */}
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElUser}
@@ -271,7 +288,7 @@ const Navbar = ({
                   </MenuItem>
                 ))}
               </Menu>
-              <Button
+              {/* <Button
                 onClick={() => router.push("/SignIn")}
                 color="inherit"
                 sx={{
@@ -285,18 +302,18 @@ const Navbar = ({
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                   },
-                  "@media (max-width: 600px)": {
-                    fontSize: "0.4rem",
-                    // padding: "10px 20px",
-                    minWidth: "auto",
-                    // width: "auto",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  },
+                  // "@media (max-width: 600px)": {
+                  //   fontSize: "0.4rem",
+                  //   // padding: "10px 20px",
+                  //   minWidth: "auto",
+                  //   // width: "auto",
+                  //   overflow: "hidden",
+                  //   textOverflow: "ellipsis",
+                  // },
                 }}
               >
                 {t("drawer.SignInNow")}
-              </Button>
+              </Button> */}
               <Button
                 sx={{
                   "@media (max-width: 1280px)": {
@@ -306,13 +323,13 @@ const Navbar = ({
                     // width: "auto",
                     overflow: "hidden",
                   },
-                  "@media (max-width: 600px)": {
-                    fontSize: "0.4rem",
-                    // padding: "10px 20px",
-                    minWidth: "auto",
-                    // width: "auto",
-                    overflow: "hidden",
-                  },
+                  // "@media (max-width: 600px)": {
+                  //   fontSize: "0.4rem",
+                  //   // padding: "10px 20px",
+                  //   minWidth: "auto",
+                  //   // width: "auto",
+                  //   overflow: "hidden",
+                  // },
                 }}
                 style={{
                   backgroundColor: "whitesmoke",

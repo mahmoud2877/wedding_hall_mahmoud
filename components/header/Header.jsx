@@ -45,7 +45,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
 import ImageSlider from "../slider2/slider2";
-
+import ApartmentIcon from "@mui/icons-material/Apartment";
 // import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 // import { useNavigate } from "react-router-dom";
 // import { SearchContext } from "../../context/SearchContext";
@@ -470,69 +470,114 @@ const Header = ({
 
   console.log(valueDate, "valueDatevalue");
 
+  const scrollableContainerRef = useRef(null);
+  const scrollableContentRef = useRef(null);
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(null);
+  const [scrollLeft, setScrollLeft] = useState(null);
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - scrollableContainerRef.current.offsetLeft);
+    setScrollLeft(scrollableContainerRef.current.scrollLeft);
+    scrollableContentRef.current.style.cursor = "grabbing";
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    scrollableContentRef.current.style.cursor = "grab";
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - scrollableContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Adjust scroll speed if needed
+    scrollableContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+    scrollableContentRef.current.style.cursor = "grab";
+  };
+
   return (
     <div className="header">
       <ImageSlider />
       <div className="background"></div>
       <div className="headerContainer">
-        <div className="headerList">
-          <button
-            className={`headerListItem ${
-              featureQuery === "wedding" ? "active" : ""
-            } `}
-            onClick={() => handleFilter("wedding")}
+        <div className="headerList" ref={scrollableContainerRef}>
+          <div
+            className="scrollAbleDiv"
+            ref={scrollableContentRef}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
           >
-            <img src="/icons/wedding.png" alt="Icon" className="icon_wedding" />
-            <span className="nameHeader">{t("wedding")} </span>
-          </button>
-          <button
-            className={`headerListItem ${
-              featureQuery === "photoshoot" ? "active" : ""
-            } `}
-            onClick={() => handleFilter("photoshoot")}
-          >
-            <CameraAltIcon
-              sx={{
-                "@media (max-width:600px)": {
-                  width: 15,
-                  // Add styles specific to smaller screens
-                },
-              }}
-            />
-            <span className="nameHeader">{t("photoshoot")}</span>
-          </button>
-          <button
-            className={`headerListItem ${
-              featureQuery === "conferences" ? "active" : ""
-            } `}
-            onClick={() => handleFilter("conferences")}
-          >
-            <GroupsIcon
-              sx={{
-                "@media (max-width:600px)": {
-                  width: 15,
-                  // Add styles specific to smaller screens
-                },
-              }}
-            />
-            <span className="nameHeader">{t("conferences")}</span>
-          </button>
-          <button
-            className={`headerListItem ${
-              featureQuery === "graduation" ? "active" : ""
-            } `}
-            onClick={() => handleFilter("graduation")}
-          >
-            <SchoolIcon
-              sx={{
-                "@media (max-width:600px)": {
-                  width: 15,
-                  // Add styles specific to smaller screens
-                },
-              }}
-            />
-            <span className="nameHeader">{t("graduation")}</span>
-          </button>
+            <button
+              className={`headerListItem ${
+                featureQuery === "wedding" ? "active" : ""
+              } `}
+              onClick={() => handleFilter("wedding")}
+            >
+              <img
+                src="/icons/wedding.png"
+                alt="Icon"
+                className="icon_wedding"
+              />
+              <span className="nameHeader">{t("wedding")} </span>
+            </button>
+            <button
+              className={`headerListItem ${
+                featureQuery === "photoshoot" ? "active" : ""
+              } `}
+              onClick={() => handleFilter("photoshoot")}
+            >
+              <CameraAltIcon
+              // sx={{
+              //   "@media (max-width:600px)": {
+              //     width: 15,
+              //     // Add styles specific to smaller screens
+              //   },
+              // }}
+              />
+              <span className="nameHeader">{t("photoshoot")}</span>
+            </button>
+            <button
+              className={`headerListItem ${
+                featureQuery === "conferences" ? "active" : ""
+              } `}
+              onClick={() => handleFilter("conferences")}
+            >
+              <GroupsIcon
+              // sx={{
+              //   "@media (max-width:600px)": {
+              //     width: 15,
+              //     // Add styles specific to smaller screens
+              //   },
+              // }}
+              />
+              <span className="nameHeader">{t("conferences")}</span>
+            </button>
+            <button
+              className={`headerListItem ${
+                featureQuery === "graduation" ? "active" : ""
+              } `}
+              onClick={() => handleFilter("graduation")}
+            >
+              <SchoolIcon
+              // sx={{
+              //   "@media (max-width:600px)": {
+              //     width: 15,
+              //     // Add styles specific to smaller screens
+              //   },
+              // }}
+              />
+              <span className="nameHeader">{t("graduation")}</span>
+            </button>
+          </div>
           {/* <div className="headerListItem">
             <FontAwesomeIcon icon={faTaxi} />
             <span>Airport taxis</span>
@@ -599,7 +644,7 @@ const Header = ({
                 </option>
               ))}
             </select>
-            <AssuredWorkloadIcon className="headerIcon" />
+            <ApartmentIcon className="headerIcon" />
           </div>
           {/* </Grid> */}
           {/* <Grid item xs={2} sm={3} sx={{ minWidth: "5%", maxWidth: "5%" }}> */}

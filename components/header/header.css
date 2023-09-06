@@ -30,20 +30,20 @@
   height: 25px;
 }
 
-@media (max-width: 600px) {
-  /* .headerBtn {
+/* @media (max-width: 600px) { */
+/* .headerBtn {
     /* Your styles for screens less than 640px wide */
-  /* For example: 
+/* For example: 
     margin-left: 60px;
   } */
-  .icon_wedding {
+/* .icon_wedding {
     width: 15px;
     height: 15px;
-  }
-  /* .nameHeader {
+  } */
+/* .nameHeader {
     font-size: x-small;
   } */
-}
+/* } */
 /* @keyframes imageAnimation {
   0% {
     background-image: url("/header/header1.jpeg");
@@ -139,13 +139,16 @@
   .headerSearch .headerSearchItem {
     width: 90%;
   }
-}
-
-@media (max-width: 470px) {
   .header .headerSearch {
-    bottom: -45px;
+    bottom: -50px;
   }
 }
+
+/* @media (max-width: 470px) {
+  .header .headerSearch {
+    
+  }
+} */
 
 .headerSearch {
   /* height: 30px; */
@@ -368,4 +371,24 @@ input {
 .react-datepicker__day--keyboard-selected {
   background-color: transparent;
   color: #007bff;
+}
+
+.scrollAbleDiv {
+  display: flex;
+  width: fit-content;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 5%;
+  overflow: hidden;
+  justify-content: flex-start;
+  width: 625px;
+  white-space: nowrap;
+  /* display: inline-block; */
+  user-select: none;
+  cursor: grab;
+  overflow-x: auto;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }

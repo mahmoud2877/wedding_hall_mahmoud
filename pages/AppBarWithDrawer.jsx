@@ -347,7 +347,11 @@ export default function Dashboard(props) {
   console.log(profile, "pattthhhhhhh");
   return (
     <ThemeProvider theme={theme}>
-      <Box>
+      <Box
+        sx={{
+          backgroundColor: "white",
+        }}
+      >
         <Navbar
           setOpen={currentLanguage === "en" ? setOpen : setOpenRight}
           currentLanguage={currentLanguage}
