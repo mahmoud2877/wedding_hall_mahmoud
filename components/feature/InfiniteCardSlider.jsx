@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./InfiniteCardSlider.css"; // Import your CSS file
+import "./infiniteCardSlider.module.css"; // Import your CSS file
 
 const InfiniteCardSlider = () => {
   const wrapperRef = useRef(null);
