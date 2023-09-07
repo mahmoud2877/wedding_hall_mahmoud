@@ -19,6 +19,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "next-i18next";
 import Navbar from "@/components/navbar/Navbar";
+import LoadingSpinner from "@/components/loading/loading";
 
 const defaultTheme = createTheme({
   palette: {
@@ -51,7 +52,7 @@ export default function SignIn() {
     setLoading(true);
 
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/user/login", data, {
+      .post("https://bh-qpxe.onrender.com:8080/api/v1/bh/user/login", data, {
         withCredentials: true,
       })
       .then((response) => {
@@ -66,6 +67,7 @@ export default function SignIn() {
         setLoading(false);
       });
   };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">

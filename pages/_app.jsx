@@ -210,7 +210,8 @@ import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
 import dynamic from "next/dynamic";
 import "dayjs/locale/ar";
-
+import LoadingSpinner from "@/components/loading/loading";
+// import LoadingSpinner from "@/components/loading/loading";
 const AppBarWithDrawer = dynamic(() => import("../pages/AppBarWithDrawer"), {
   ssr: false,
 });
@@ -228,10 +229,30 @@ const ltrTheme = createTheme({
 });
 
 function MyApp({ Component, pageProps }) {
+  const [loading, setLoading] = React.useState(false);
+
   const [isRtl, setIsRtl] = React.useState(false);
   const { t } = useTranslation();
   const router = useRouter();
+  React.useEffect(() => {
+    const handleStart = () => {
+      setLoading(true);
+    };
 
+    const handleComplete = () => {
+      setLoading(false);
+    };
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  }, []);
   const getStoredLanguage = () => {
     if (typeof window !== "undefined") {
       const storedLanguage = localStorage.getItem("language");
@@ -270,6 +291,9 @@ function MyApp({ Component, pageProps }) {
 
   const showNavBar = ![].includes(router.pathname);
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
   const component = showNavBar ? (
     <LocalizationProvider
       dateAdapter={AdapterDayjs}
@@ -372,10 +396,11 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <NextNProgress color="#8F00FF" />
+      {/* <React.Suspense fallback={<LoadingSpinner />}> */}
       <div dir={isRtl ? "rtl" : "ltr"}>
         <ThemeProvider theme={theme}>{component}</ThemeProvider>
       </div>
+      {/* </React.Suspense> */}
     </>
   );
 }

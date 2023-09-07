@@ -63,7 +63,7 @@ export default function HallAdvancedInfo() {
 
     axios
       .post(
-        "http://192.168.1.66:8080/api/v1/bh/weddinghallinfo/pdf",
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghallinfo/pdf",
         formData,
         {
           withCredentials: true,

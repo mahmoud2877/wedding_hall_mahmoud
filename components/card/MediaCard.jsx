@@ -33,7 +33,7 @@ export default function MediaCard({
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         sx={{ height: 140 }}
-        image="http://192.168.1.66:8080/public/halls/hall--1692108995749-4.jpeg?w=164&h=164&fit=crop&auto=format"
+        image="https://bh-qpxe.onrender.com:8080/public/halls/hall--1692108995749-4.jpeg?w=164&h=164&fit=crop&auto=format"
         title="green iguana"
       />
       <CardContent>

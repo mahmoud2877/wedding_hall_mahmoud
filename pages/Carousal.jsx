@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Carousel from "react-material-ui-carousel";
 
 function SwipeableTextMobileStepper({ hall }) {
-  const imageSrc = "http://192.168.1.66:8080/public/halls/";
+  const imageSrc = "https://bh-qpxe.onrender.com:8080/public/halls/";
 
   const images = hall?.wedding_infos
     .filter((info) => info.tag === "images")

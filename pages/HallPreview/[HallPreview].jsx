@@ -53,8 +53,8 @@ const HallPreview = () => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const imageSrc = "http://192.168.1.66:8080/public/halls/";
-  const thumbSrc = "http://192.168.1.66:8080/public/thumbnail/";
+  const imageSrc = "https://bh-qpxe.onrender.com:8080/public/halls/";
+  const thumbSrc = "https://bh-qpxe.onrender.com:8080/public/thumbnail/";
 
   const [hallDesc, setHallDesc] = React.useState("");
   const [hallImages, setHallImages] = React.useState([]);
@@ -109,7 +109,7 @@ const HallPreview = () => {
   React.useEffect(() => {
     if (!id) return;
     axios
-      .get(`http://192.168.1.66:8080/api/v1/bh/weddinghall/${id}`, {
+      .get(`https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall/${id}`, {
         withCredentials: true,
       })
       .then((response) => {

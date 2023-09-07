@@ -54,7 +54,7 @@ export default function VideosModal({ setHallThumb }) {
 
   const videosData = () => {
     axios
-      .get(`http://192.168.1.66:8080/api/v1/bh/weddinghall/${id}`, {
+      .get(`https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall/${id}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -80,7 +80,7 @@ export default function VideosModal({ setHallThumb }) {
 
     try {
       const response = await axios.post(
-        "http://192.168.1.66:8080/api/v1/bh/weddinghallinfo/video",
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghallinfo/video",
         formData,
         {
           headers: {

@@ -41,7 +41,7 @@ export const ReservationModal = ({ id_hall, id_package }) => {
 
     try {
       const response = await axios.get(
-        `http://192.168.1.66:8080/api/v1/bh/reservation?id_hall=${id_hall}`,
+        `https://bh-qpxe.onrender.com:8080/api/v1/bh/reservation?id_hall=${id_hall}`,
         {
           withCredentials: true,
         }
@@ -75,7 +75,7 @@ export const ReservationModal = ({ id_hall, id_package }) => {
 
     try {
       const response = await axios.post(
-        "http://192.168.1.66:8080/api/v1/bh/reservation",
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/reservation",
         formInput,
         {
           withCredentials: true,

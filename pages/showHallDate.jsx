@@ -12,7 +12,7 @@ export default function DateCalendarValue({ hall_id }) {
     if (!hall_id) return;
     axios
       .get(
-        `http://192.168.1.66:8080/api/v1/bh/reservation?id_hall=${hall_id}`,
+        `https://bh-qpxe.onrender.com:8080/api/v1/bh/reservation?id_hall=${hall_id}`,
         {
           withCredentials: true,
         }

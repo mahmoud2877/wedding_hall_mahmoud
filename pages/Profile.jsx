@@ -26,7 +26,7 @@ const defaultTheme = createTheme({
 export default function Profile() {
   const { t } = useTranslation();
 
-  const userImage = "http://192.168.1.66:8080/public/img/users/";
+  const userImage = "https://bh-qpxe.onrender.com:8080/public/img/users/";
   const [profileEdit, setProfileEdit] = React.useState("");
   const { setProfile } = React.useContext(authContext);
   const [error, setError] = React.useState("");
@@ -77,7 +77,7 @@ export default function Profile() {
   });
   React.useEffect(() => {
     const response = axios
-      .get(`http://192.168.1.66:8080/api/v1/bh/user/profile`, {
+      .get(`https://bh-qpxe.onrender.com:8080/api/v1/bh/user/profile`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -128,7 +128,7 @@ export default function Profile() {
     formData.append("email", data.email);
     formData.append("image", data.image);
     axios
-      .patch("http://192.168.1.66:8080/api/v1/bh/user/me", formData, {
+      .patch("https://bh-qpxe.onrender.com:8080/api/v1/bh/user/me", formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -136,7 +136,7 @@ export default function Profile() {
       })
       .then((response) => {
         axios
-          .get(`http://192.168.1.66:8080/api/v1/bh/user/profile`, {
+          .get(`https://bh-qpxe.onrender.com:8080/api/v1/bh/user/profile`, {
             withCredentials: true,
           })
           .then((response) => {
@@ -159,7 +159,7 @@ export default function Profile() {
     formData.append("password", data.password);
     formData.append("passwordConfirm", data.confirmPassword);
     axios
-      .patch("http://192.168.1.66:8080/api/v1/bh/user/me", formData, {
+      .patch("https://bh-qpxe.onrender.com:8080/api/v1/bh/user/me", formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",

@@ -27,7 +27,7 @@ export default function IconCheckboxes() {
     if (!id) return;
 
     axios
-      .get(`http://192.168.1.66:8080/api/v1/bh/user/profile`, {
+      .get(`https://bh-qpxe.onrender.com:8080/api/v1/bh/user/profile`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -59,7 +59,7 @@ export default function IconCheckboxes() {
       tag: "Favourite",
       id_hall: id,
     };
-    axios.post("http://192.168.1.66:8080/api/v1/bh/review", data, {
+    axios.post("https://bh-qpxe.onrender.com:8080/api/v1/bh/review", data, {
       withCredentials: true,
     });
   };

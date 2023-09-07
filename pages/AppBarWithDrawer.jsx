@@ -49,8 +49,7 @@ import Navbar from "@/components/navbar/Navbar";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import MailList from "@/components/mailList/MailList";
-
-import { useState, useEffect } from "react";
+import LoadingSpinner from "@/components/loading/loading";
 
 const drawerWidth = 200;
 
@@ -209,16 +208,23 @@ export default function Dashboard(props) {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const isLoogedIn = !!profile;
   const handleLogout = () => {
+    setLoading(true); // Set loading to true before making the request
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/user/logout", "", {
+      .post("https://bh-qpxe.onrender.com:8080/api/v1/bh/user/logout", "", {
         withCredentials: true,
       })
       .then(() => {
         setProfile(null);
         setAnchorElUser(null);
         router.push("/SignIn");
+        setLoading(false); // Set loading to false after the request is complete
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false); // Set loading to false in case of an error
       });
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -231,17 +237,23 @@ export default function Dashboard(props) {
   const [openRight, setOpenRight] = React.useState(false);
 
   React.useEffect(() => {
+    setLoading(true);
     axios
-      .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+      .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall", {
         withCredentials: true,
       })
-      .then((response) =>
+      .then((response) => {
         setHalls(
           response.data.data.data.filter(
             (hall) => hall.wedding_infos.length > 0
           )
-        )
-      );
+        );
+        setLoading(false); // Set loading to false when data is successfully loaded
+      })
+      .catch(function (error) {
+        console.error(error);
+        setLoading(false); // Set loading to false in case of an error
+      });
   }, [setHalls]);
 
   // const onSubmit = (data) => {
@@ -265,7 +277,7 @@ export default function Dashboard(props) {
   //   if (Object.keys(params).length >= 0) {
   //     setSearch(params);
   //     axios
-  //       .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+  //       .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall", {
   //         withCredentials: true,
   //         params,
   //       })
@@ -286,7 +298,7 @@ export default function Dashboard(props) {
   //       });
   //   } else {
   //     axios
-  //       .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+  //       .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall", {
   //         withCredentials: true,
   //       })
   //       .then((response) =>
@@ -309,17 +321,23 @@ export default function Dashboard(props) {
     return language === "ar" ? "right" : "left";
   };
   React.useEffect(() => {
+    setLoading(true);
     axios
-      .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+      .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall", {
         withCredentials: true,
       })
-      .then((response) =>
+      .then((response) => {
         setMainHalls(
           response.data.data.data.filter(
             (hall) => hall.wedding_infos.length > 0
           )
-        )
-      );
+        );
+        setLoading(false); // Set loading to false when data is loaded
+      })
+      .catch(function (error) {
+        console.error(error);
+        setLoading(false); // Handle errors by setting loading to false
+      });
   }, []);
 
   const drawerAnchor = getDrawerAnchor(currentLanguage);
@@ -328,13 +346,13 @@ export default function Dashboard(props) {
   let dirc;
   theme.direction === "ltr" ? (dirc = "ltr") : (dirc = "rtl");
   console.log(dirc, "dircdirc");
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Attach event listener for window resize
     window.addEventListener("resize", handleResize);
 

@@ -54,7 +54,7 @@ const ListSearch = () => {
   });
   useEffect(() => {
     axios
-      .get("http://192.168.1.66:8080/api/v1/bh/governorate", {
+      .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/governorate", {
         withCredentials: true,
       })
       .then((response) => {
@@ -273,7 +273,7 @@ const ListSearch = () => {
       console.log(params, "paramsparams", paramsContext);
       setSearch(paramsContext);
       axios
-        .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+        .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall", {
           withCredentials: true,
           params,
         })
@@ -295,7 +295,7 @@ const ListSearch = () => {
       // });
     } else {
       axios
-        .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+        .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall", {
           withCredentials: true,
         })
         .then((response) =>
@@ -323,7 +323,7 @@ const ListSearch = () => {
     // const selectedGovernorateId = event.target.value.id;
     try {
       const response = await axios.get(
-        `http://192.168.1.66:8080/api/v1/bh/cities/?governorate_id=${event.target.value}`,
+        `https://bh-qpxe.onrender.com:8080/api/v1/bh/cities/?governorate_id=${event.target.value}`,
         {
           withCredentials: true,
         }
@@ -339,7 +339,7 @@ const ListSearch = () => {
       // if (valueGov) {
       try {
         const response = await axios.get(
-          `http://192.168.1.66:8080/api/v1/bh/cities/?governorate_id=${valueGov}`,
+          `https://bh-qpxe.onrender.com:8080/api/v1/bh/cities/?governorate_id=${valueGov}`,
           {
             withCredentials: true,
           }

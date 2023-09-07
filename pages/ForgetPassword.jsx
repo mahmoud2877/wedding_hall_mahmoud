@@ -49,7 +49,10 @@ export default function ForgetPassword() {
     setSuccessMessage("");
     setErrorMessage("");
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/user/forgetpassword", data)
+      .post(
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/user/forgetpassword",
+        data
+      )
       .then((response) => {
         setDisableSubmit(true);
 

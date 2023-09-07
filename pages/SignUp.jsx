@@ -93,12 +93,16 @@ export default function SignUp() {
     formData.append("image", data.image);
     // formData.append("phone", data.phone);
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/user/signup", formData, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .post(
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/user/signup",
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((response) => {
         setProfile(response.data.data.users);
         response.data.token ? router.push("/") : router.push("/SignUp");

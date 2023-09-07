@@ -75,7 +75,7 @@ export default function AddressForm({ handleNext, activeButtonName }) {
 
   React.useEffect(() => {
     axios
-      .get("http://192.168.1.66:8080/api/v1/bh/governorate", {
+      .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/governorate", {
         withCredentials: true,
       })
       .then((response) => {
@@ -95,7 +95,7 @@ export default function AddressForm({ handleNext, activeButtonName }) {
         );
         try {
           const response = await axios.get(
-            `http://192.168.1.66:8080/api/v1/bh/cities/?governorate_id=${value.id}`,
+            `https://bh-qpxe.onrender.com:8080/api/v1/bh/cities/?governorate_id=${value.id}`,
             {
               withCredentials: true,
             }
@@ -141,7 +141,7 @@ export default function AddressForm({ handleNext, activeButtonName }) {
     data.hall_type = activeButtonName;
     console.log(data, "dataBefore");
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/weddinghall", data, {
+      .post("https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall", data, {
         withCredentials: true,
       })
       .then((response) => {

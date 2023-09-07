@@ -30,7 +30,7 @@ export default function UserHalls() {
 
   React.useEffect(() => {
     axios
-      .get("http://192.168.1.66:8080/api/v1/bh/user/myhalls", {
+      .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/user/myhalls", {
         withCredentials: true,
       })
       .then((response) => {

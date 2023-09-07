@@ -50,7 +50,7 @@ function Home() {
         tag: "Favourite",
       };
       axios
-        .get("http://192.168.1.66:8080/api/v1/bh/review/fav", {
+        .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/review/fav", {
           withCredentials: true,
           params,
         })
@@ -92,12 +92,12 @@ function Home() {
     };
 
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/review", data, {
+      .post("https://bh-qpxe.onrender.com:8080/api/v1/bh/review", data, {
         withCredentials: true,
       })
       .then(() => {
         axios
-          .get(`http://192.168.1.66:8080/api/v1/bh/user/profile`, {
+          .get(`https://bh-qpxe.onrender.com:8080/api/v1/bh/user/profile`, {
             withCredentials: true,
           })
           .then((response) => {
@@ -121,7 +121,7 @@ function Home() {
       page: page,
     };
     axios
-      .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+      .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall", {
         withCredentials: true,
         params,
       })

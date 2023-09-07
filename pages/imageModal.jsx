@@ -59,7 +59,7 @@ export default function ImagesModal({ setHallImages }) {
 
   const imagesData = () => {
     axios
-      .get(`http://192.168.1.66:8080/api/v1/bh/weddinghall/${id}`, {
+      .get(`https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall/${id}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -99,7 +99,7 @@ export default function ImagesModal({ setHallImages }) {
 
     try {
       const response = await axios.post(
-        "http://192.168.1.66:8080/api/v1/bh/weddinghallinfo",
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghallinfo",
         formData,
         {
           headers: {

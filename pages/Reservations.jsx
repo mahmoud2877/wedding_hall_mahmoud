@@ -44,7 +44,7 @@ export default function Reservations() {
 
   React.useEffect(() => {
     axios
-      .get("http://192.168.1.66:8080/api/v1/bh/reservation/me", {
+      .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/reservation/me", {
         withCredentials: true,
       })
       .then((response) => {
@@ -61,7 +61,7 @@ export default function Reservations() {
           <Grid direction="row" item xs={12} key={packageName.id}>
             <CardMedia
               sx={{ height: 140 }}
-              image="http://192.168.1.66:8080/public/halls/hall--1692108995749-4.jpeg?w=164&h=164&fit=crop&auto=format"
+              image="https://bh-qpxe.onrender.com:8080/public/halls/hall--1692108995749-4.jpeg?w=164&h=164&fit=crop&auto=format"
               title="green iguana"
             />
             <Card onClick={() => handlePackageClick(packageName)}>

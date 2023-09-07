@@ -62,7 +62,7 @@ export default function ForgetPassword({ t }) {
 
     axios
       .post(
-        `http://192.168.1.66:8080/api/v1/bh/user/resetpassword/${token}`,
+        `https://bh-qpxe.onrender.com:8080/api/v1/bh/user/resetpassword/${token}`,
         data,
         {
           withCredentials: true,

@@ -12,7 +12,7 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://192.168.1.66:3000](http://192.168.1.66:3000) with your browser to see the result.
+Open [https://bh-qpxe.onrender.com:3000](https://bh-qpxe.onrender.com:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 

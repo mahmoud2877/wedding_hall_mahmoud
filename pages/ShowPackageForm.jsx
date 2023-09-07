@@ -65,7 +65,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
 
   const packageData = () => {
     axios
-      .get(`http://192.168.1.66:8080/api/v1/bh/weddinghall/${id}`, {
+      .get(`https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall/${id}`, {
         withCredentials: true,
       })
       .then((response) => {
@@ -90,13 +90,17 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
-        withCredentials: true,
-      })
+      .post(
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/packagehallinfo",
+        data,
+        {
+          withCredentials: true,
+        }
+      )
 
       .then((response) => {
         // return axios.patch(
-        //   `http://192.168.1.66:8080/api/v1/bh/weddinghallinfo/${packageName.id}`,
+        //   `https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghallinfo/${packageName.id}`,
         //   { value: data.value },
         //   {
         //     withCredentials: true,
@@ -123,13 +127,17 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
-        withCredentials: true,
-      })
+      .post(
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/packagehallinfo",
+        data,
+        {
+          withCredentials: true,
+        }
+      )
 
       .then((response) => {
         // return axios.patch(
-        //   `http://192.168.1.66:8080/api/v1/bh/weddinghallinfo/${packageName.id}`,
+        //   `https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghallinfo/${packageName.id}`,
         //   { value: data.value },
         //   {
         //     withCredentials: true,
@@ -154,7 +162,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
 
     axios
       .patch(
-        `http://192.168.1.66:8080/api/v1/bh/weddinghallinfo/${packageName.id}`,
+        `https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghallinfo/${packageName.id}`,
         data,
         {
           withCredentials: true,
@@ -180,9 +188,13 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
-        withCredentials: true,
-      })
+      .post(
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/packagehallinfo",
+        data,
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         packageData();
       })
@@ -203,9 +215,13 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
-        withCredentials: true,
-      })
+      .post(
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/packagehallinfo",
+        data,
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         packageData();
       })
@@ -225,9 +241,13 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
-        withCredentials: true,
-      })
+      .post(
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/packagehallinfo",
+        data,
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         packageData();
       })
@@ -247,9 +267,13 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
-        withCredentials: true,
-      })
+      .post(
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/packagehallinfo",
+        data,
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         packageData();
       })
@@ -272,7 +296,7 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
   //   };
 
   //   axios
-  //     .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
+  //     .post("https://bh-qpxe.onrender.com:8080/api/v1/bh/packagehallinfo", data, {
   //       withCredentials: true,
   //     })
   //     .then((response) => {
@@ -294,9 +318,13 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
-        withCredentials: true,
-      })
+      .post(
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/packagehallinfo",
+        data,
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         packageData();
       })
@@ -316,9 +344,13 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
-        withCredentials: true,
-      })
+      .post(
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/packagehallinfo",
+        data,
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         packageData();
       })
@@ -338,9 +370,13 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
-        withCredentials: true,
-      })
+      .post(
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/packagehallinfo",
+        data,
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         packageData();
       })
@@ -360,9 +396,13 @@ export const ShowPackageForm = ({ packageName, onClose, setHallPackage }) => {
     };
 
     axios
-      .post("http://192.168.1.66:8080/api/v1/bh/packagehallinfo", data, {
-        withCredentials: true,
-      })
+      .post(
+        "https://bh-qpxe.onrender.com:8080/api/v1/bh/packagehallinfo",
+        data,
+        {
+          withCredentials: true,
+        }
+      )
       .then((response) => {
         packageData();
       })

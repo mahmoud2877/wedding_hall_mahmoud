@@ -159,7 +159,7 @@ const Header = ({
 
   React.useEffect(() => {
     axios
-      .get("http://192.168.1.66:8080/api/v1/bh/governorate", {
+      .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/governorate", {
         withCredentials: true,
       })
       .then((response) => {
@@ -208,7 +208,7 @@ const Header = ({
 
     try {
       const response = await axios.get(
-        `http://192.168.1.66:8080/api/v1/bh/cities/?governorate_id=${event.target.value}`,
+        `https://bh-qpxe.onrender.com:8080/api/v1/bh/cities/?governorate_id=${event.target.value}`,
         {
           withCredentials: true,
         }
@@ -326,7 +326,7 @@ const Header = ({
       console.log(params, "paramsparams", paramsContext);
       setSearch(paramsContext);
       axios
-        .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+        .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall", {
           withCredentials: true,
           params,
         })
@@ -347,7 +347,7 @@ const Header = ({
         });
     } else {
       axios
-        .get("http://192.168.1.66:8080/api/v1/bh/weddinghall", {
+        .get("https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall", {
           withCredentials: true,
         })
         .then((response) =>
@@ -447,10 +447,13 @@ const Header = ({
     }
 
     axios
-      .get(`http://192.168.1.66:8080/api/v1/bh/weddinghall?feature=${query}`, {
-        withCredentials: true,
-        // paramFeatures,
-      })
+      .get(
+        `https://bh-qpxe.onrender.com:8080/api/v1/bh/weddinghall?feature=${query}`,
+        {
+          withCredentials: true,
+          // paramFeatures,
+        }
+      )
       .then((response) => {
         setFilteredHalls(
           response.data.data.data.filter(

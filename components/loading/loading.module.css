@@ -1,0 +1,11 @@
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  scroll-behavior: unset;
+}
