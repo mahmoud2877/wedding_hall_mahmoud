@@ -78,7 +78,7 @@
 .headerList {
   display: flex;
   gap: 5%;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
 }
 
@@ -140,7 +140,7 @@
     width: 90%;
   }
   .header .headerSearch {
-    bottom: -50px;
+    bottom: -60px;
   }
 }
 

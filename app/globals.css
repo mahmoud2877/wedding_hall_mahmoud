@@ -35,3 +35,18 @@ select::after {
   transform: translateY(-50%);
   pointer-events: none; /* Ensure the arrow doesn't interfere with clicking the select */
 }
+
+/* Hide vertical scrollbar */
+::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Hide horizontal scrollbar (if needed) */
+::-webkit-scrollbar-horizontal {
+  display: none;
+}
+
+/* Hide scrollbar when not interacting with it */
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
